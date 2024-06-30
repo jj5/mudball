@@ -243,6 +243,29 @@ class MudModuleDefine extends MudModuleBasic {
 
   protected function parse_svn_revision( string $path, &$date = null ) : int {
 
+    $lines = file( __DIR__ . '/../../../../../../inc/version.php' );
+
+    foreach ( $lines as $line ) {
+
+      if ( preg_match( '/Date: ([^ ]*) ([^ ]*)([^ ]*)/', $line, $matches ) ) {
+
+        $iso_date = $matches[ 1 ] . ' ' . $matches[ 2 ] . ' ' . $matches[ 3 ];
+
+        $date = date( "D, j M y H:i:s O", strtotime( $iso_date ) );
+        
+      }
+
+      if ( preg_match( '/Revision: ([^ ]*)/', $line, $matches ) ) {
+
+        return intval( $matches[ 1 ] );
+
+      }
+    }
+
+    mud_not_supported();
+
+    // 2024-07-01 jj5 - we used to load this info from svn, but now we're on git.
+
     $cmd = 'svn info ' . addslashes( $path );
 
     $info = trim( shell_exec( $cmd ) );
