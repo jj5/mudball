@@ -2141,7 +2141,10 @@ class MudModuleHtml extends MudModuleWeb {
 
           if ( $href ) {
 
-            if ( $href[ 0 ] === '/' && strpos( $href, '?' ) ) {
+            if (
+              ( $href[ 0 ] === '/' && strpos( $href, '?' ) ) ||
+              ( $href[ 0 ] === '?' )
+            ) {
 
               $attrs[ 'rel' ] = 'nofollow';
 
