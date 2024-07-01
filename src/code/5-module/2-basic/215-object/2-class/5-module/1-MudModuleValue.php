@@ -284,6 +284,8 @@ class MudModuleValue extends MudModuleBasic {
 
       $new_value = new $class( $value );
 
+      $new_value->set_key( $key );
+
       $this->atom_count += 1;
 
       if ( DEBUG ) { $this->atom_size += $this->get_size( $new_value ); }
@@ -313,6 +315,8 @@ class MudModuleValue extends MudModuleBasic {
     if ( ! isset( $this->composite_map[ $class ][ $key ] ) ) {
 
       $new_value = new $class( $value_list );
+
+      $new_value->set_key( $key );
 
       $this->composite_count += 1;
 

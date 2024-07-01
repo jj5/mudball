@@ -22,4 +22,8 @@ interface IMudValue extends IMudHost, IMudNullable {
 
   public function get_sort_value() : int|float|string|null;
 
+  public function get_key() : string;
+
+  public function set_key( string $key ) : void;
+
 }

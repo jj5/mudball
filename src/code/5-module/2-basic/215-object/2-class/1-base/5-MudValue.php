@@ -36,4 +36,11 @@ abstract class MudValue extends MudHost implements IMudValue {
     tag_text( 'span', $this->format( $format ), $attrs );
 
   }
+
+  private string $key = '';
+
+  public function get_key() : string { return $this->key; }
+
+  public function set_key( string $key ) : void { $this->key = $key; }
+
 }

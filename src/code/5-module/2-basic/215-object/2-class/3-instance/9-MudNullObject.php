@@ -18,6 +18,29 @@ class MudNullValue implements IMudNullValue {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-01 jj5 - IMudObject interface...
+  //
+
+  // 2024-06-30 jj5 - NOTE: by default null values are not valid...
+  //
+  public function is_valid( mixed $options = null ) : bool { return false; }
+
+  public function to_string() : string { return ''; }
+
+  public function to_html( mixed $format = null ) : string { return ''; }
+
+  public function to_nbsp( mixed $format = null ) : string { return ''; }
+
+  public function set_parent( IMudNode $parent ) : void { ; }
+
+  public function format( mixed $spec = null ) : string { return ''; }
+
+  public function render( mixed $format = null, array $attrs = [] ) : void { ; }
+
+  public function validate( mixed $options = null ) : void { ; }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-30 jj5 - IMudNullable interface...
   //
 
@@ -29,6 +52,45 @@ class MudNullValue implements IMudNullValue {
 
   public function add_to_map( mixed $key, array &$map ) : void { ; }
 
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-01 jj5 - IMudHost interface...
+  //
+
+  public function get_child_list() : array { return []; }
+
+  public function get( string $class, int $index = 0 ) : IMudObject { return $this; }
+
+  public function get_first( string $class ) : IMudObject { return $this; }
+
+  public function get_last( string $class ) : IMudObject { return $this; }
+
+  public function get_descendent( string $class ) : IMudObject { return $this; }
+
+  public function get_descendent_depth_first( string $class ) : IMudObject { return $this; }
+
+  public function get_descendent_breadth_first( string $class ) : IMudObject { return $this; }
+
+  public function get_list( string|null $class = null ) : array { return []; }
+
+  public function get_any( array $class_list ) : IMudObject { return $this; }
+
+  public function get_all( array $class_list ) : array { return []; }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-01 jj5 - IMudHost interface...
+  //
+
+  public function get_closest( string $class ) : IMudNode { return $this; }
+
+  public function get_parent( string|null $class = null ) : IMudNode { return $this; }
+
+  public function get_grandparent( string|null $class = null ) : IMudNode { return $this; }
+
+  public function get_ancestor( string|null $class = null ) : IMudNode { return $this; }
+
+  public function get_root( string|null $class = null ) : IMudNode { return $this; }
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,43 +111,15 @@ class MudNullValue implements IMudNullValue {
 
   public function to_float() : float { return 0.0; }
 
-  public function to_string() : string { return ''; }
-
   public function get_value() : mixed { return null; }
 
   public function get_db_value() : int|float|string|null { return null; }
 
   public function get_sort_value() : int|float|string|null { return null; }
 
-  public function get_child_list() : array { return []; }
+  public function get_key() : string { return ''; }
 
-  public function get( string $class, int $index = 0 ) : IMudObject { return $this; }
-
-  public function get_first( string $class ) : IMudObject { return $this; }
-
-  public function get_last( string $class ) : IMudObject { return $this; }
-
-  public function get_closest( string $class ) : IMudObject { return $this; }
-
-  public function get_descendent( string $class ) : IMudObject { return $this; }
-
-  public function get_descendent_depth_first( string $class ) : IMudObject { return $this; }
-
-  public function get_descendent_breadth_first( string $class ) : IMudObject { return $this; }
-
-  public function get_list( string|null $class = null ) : array { return []; }
-
-  public function get_any( array $class_list ) : IMudObject { return $this; }
-
-  public function get_all( array $class_list ) : array { return []; }
-
-  public function set_parent( IMudNode $parent ) : void { ; }
-
-  public function format( mixed $spec = null ) : string { return ''; }
-
-  public function render( mixed $format = null, array $attrs = [] ) : void { ; }
-
-  public function validate( mixed $options = null ) : void { ; }
+  public function set_key( string $key ) : void { ; }
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,10 +163,6 @@ class MudNullValue implements IMudNullValue {
   //
 
   public function new_date_time() : DateTime { return new DateTime( 'now' ); }
-
-  // 2024-06-30 jj5 - NOTE: by default null values are not valid...
-
-  public function is_valid( mixed $options = null ) : bool { return false; }
 
   // 2024-06-30 jj5 - THINK: an argument could be made that these should be true... they do implement the interface...
 
@@ -184,5 +214,50 @@ class MudNullValue implements IMudNullValue {
   public function get_microseconds(): int { return 0; }
 
   public function format_auto() : string { return ''; }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-01 jj5 - IMudMoney interface...
+  //
+
+  public function get_sign() : IMudSign { return $this; }
+
+  public function get_currency() : IMudCurrency { return $this; }
+
+  public function get_dollars() : IMudDollars { return $this; }
+
+  public function get_cents() : IMudCents { return $this; }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-01 jj5 - IMudUrl interface...
+  //
+
+  public function get_url_scheme() : IMudUrlScheme { return $this; }
+
+  public function get_url_user() : IMudUrlUser { return $this; }
+
+  public function get_url_pass() : IMudUrlPass { return $this; }
+
+  public function get_url_host() : IMudUrlHost { return $this; }
+
+  public function get_url_port() : IMudUrlPort { return $this; }
+
+  public function get_url_path() : IMudUrlPath { return $this; }
+
+  public function get_url_query() : IMudUrlQuery { return $this; }
+
+  public function get_url_fragment() : IMudUrlFragment { return $this; }
+
+  public function format_relative() : string { return ''; }
+
+  public function format_absolute() : string { return ''; }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-01 jj5 - IMudUrlEncoded interface...
+  //
+
+  public function decode() : string { return ''; }
 
 }

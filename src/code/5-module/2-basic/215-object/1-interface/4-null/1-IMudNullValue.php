@@ -13,6 +13,20 @@ interface IMudNullValue extends
   IMudDateTimeLocal,
   IMudDateTimeZoned,
   IMudDateTimeZone,
-  IMudDateInterval {
+  IMudDateInterval,
+  IMudMoney,
+  IMudCurrency,
+  IMudDollars,
+  IMudCents,
+  IMudUrl,
+  IMudUrlScheme,
+  IMudUrlUser,
+  IMudUrlPass,
+  IMudUrlHost,
+  IMudUrlPort,
+  IMudUrlEncoded,
+  IMudUrlPath,
+  IMudUrlQuery,
+  IMudUrlFragment {
 
 }
