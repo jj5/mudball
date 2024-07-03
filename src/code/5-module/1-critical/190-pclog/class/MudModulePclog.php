@@ -1423,10 +1423,18 @@ $trace
 
         default :
 
-          header( 'Content-Type: text/plain', $replace = true );
+          if ( function_exists( 'render_500' ) ) {
 
-          echo "{$report}\n";
+            render_500( $message, $form, $issue, $exit, $ex );
+            
+          }
+          else {
 
+            header( 'Content-Type: text/plain', $replace = true );
+
+            echo "{$report}\n";
+
+          }
       }
     }
     else {
