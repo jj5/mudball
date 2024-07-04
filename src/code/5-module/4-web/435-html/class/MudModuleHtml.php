@@ -1630,6 +1630,11 @@ class MudModuleHtml extends MudModuleWeb {
     assert( is_array( $this->html_state[ 'stack-tags' ] ) );
     assert( is_array( $this->html_state[ 'stack-attrs' ] ) );
 
+    // 2024-07-04 jj5 - NOTE: we need to read these before we call fix_attrs() because fix_attrs() will remove them...
+    //
+    $opt_break = $this->get_attr( $attrs, 'opt-break', $this->get_opt_break() );
+    $opt_space = $this->get_attr( $attrs, 'opt-space', $this->get_opt_space() );
+
     $this->fix_attrs( $tag, $attrs );
 
     array_push( $this->html_state[ 'stack-tags' ], $tag );
@@ -1638,10 +1643,6 @@ class MudModuleHtml extends MudModuleWeb {
     $this->debug_note();
 
     $attrs_html = $this->attrs_to_html( $attrs, $tag );
-
-    $opt_break = $this->get_attr( $attrs, 'opt-break', $this->get_opt_break() );
-
-    $opt_space = $this->get_attr( $attrs, 'opt-space', $this->get_opt_space() );
 
     if ( $opt_space ) {
 
@@ -2343,6 +2344,14 @@ class MudModuleHtml extends MudModuleWeb {
   protected function fix_attrs( string $tag, array &$attrs ) {
 
     static $auto_name = [ 'input', 'select', 'textarea', ];
+
+    // 2024-07-04 jj5 - remove any 'opt-' attributes from the attributes list...
+    //
+    foreach ( $attrs as $key => $val ) {
+
+      if ( strpos( $key, 'opt-' ) === 0 ) { unset( $attrs[ $key ] ); }
+
+    }
 
     // 2021-10-20 jj5 - I don't think we need this...
     /*
