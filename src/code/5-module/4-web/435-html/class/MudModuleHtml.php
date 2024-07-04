@@ -925,13 +925,21 @@ class MudModuleHtml extends MudModuleWeb {
 
   public function get_opt_space( $default = MUD_HTML_DEFAULT_OPT_SPACE ) {
 
-    return $this->get_opt( MUD_HTML_OPT_SPACE, $default );
+    // 2024-07-05 jj5 - HACK: this override is probably quite useful...
+    //
+    return DEBUG;
+
+    //return $this->get_opt( MUD_HTML_OPT_SPACE, $default );
 
   }
 
   public function get_opt_break( $default = MUD_HTML_DEFAULT_OPT_BREAK ) {
 
-    return $this->get_opt( MUD_HTML_OPT_BREAK, $default );
+    // 2024-07-05 jj5 - HACK: this override is probably quite useful...
+    //
+    return ! DEBUG;
+
+    //return $this->get_opt( MUD_HTML_OPT_BREAK, $default );
 
   }
 
