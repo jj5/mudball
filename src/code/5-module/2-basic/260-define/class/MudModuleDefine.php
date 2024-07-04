@@ -156,6 +156,8 @@ class MudModuleDefine extends MudModuleBasic {
     $this->define_default( $const_prefix . '_SLUG', $slug );
     $this->define_default( $const_prefix . '_CONST', $const_prefix );
 
+    $this->define_default( $const_prefix, $slug );
+
     return $this;
 
   }

@@ -1593,6 +1593,18 @@ class MudModuleHtml extends MudModuleWeb {
 
   }
 
+  protected function get_opt_space() {
+
+    return $this->get_opt( 'opt-space', true );
+
+  }
+
+  protected function get_opt_break() {
+
+    return $this->get_opt( 'opt-break', false );
+
+  }
+
   // 2017-06-01 jj5 - TODO: think about validating whether elements are allowed
   // as sub-elements...
   public function tag_open( string $tag, array $attrs = [], $bare = false ) : MudModuleHtml {
@@ -1627,7 +1639,11 @@ class MudModuleHtml extends MudModuleWeb {
 
     $attrs_html = $this->attrs_to_html( $attrs, $tag );
 
-    if ( $this->get_attr( $attrs, 'opt-space', true ) ) {
+    $opt_break = $this->get_attr( $attrs, 'opt-break', $this->get_opt_break() );
+
+    $opt_space = $this->get_attr( $attrs, 'opt-space', $this->get_opt_space() );
+
+    if ( $opt_space ) {
 
       $this->out_line();
 
@@ -1645,13 +1661,49 @@ class MudModuleHtml extends MudModuleWeb {
 
     if ( $bare && $this->html_state[ 'doctype' ] === MUD_DOCTYPE_XML ) {
 
-      $this->put_html( "<{$tag}{$attrs_html} />" );
+      if ( $opt_space ) {
 
+        $this->put_html( "<{$tag}{$attrs_html} />" );
+
+      }
+      else {
+
+        if ( $opt_break ) {
+
+          $attrs_html = ltrim( $attrs_html );
+
+          $this->put_html( "<{$tag}\n{$attrs_html} />" );
+
+        }
+        else {
+
+          $this->put_html( "<{$tag}{$attrs_html} />" );
+
+        }
+      }
     }
     else {
 
-      $this->put_html( "<{$tag}{$attrs_html}>" );
+      if ( $opt_space ) {
 
+        $this->put_html( "<{$tag}{$attrs_html}>" );
+
+      }
+      else {
+
+        if ( $opt_break ) {
+
+          $attrs_html = ltrim( $attrs_html );
+
+          $this->put_html( "<{$tag}\n{$attrs_html}>" );
+
+        }
+        else {
+
+          $this->put_html( "<{$tag}{$attrs_html}>" );
+
+        }
+      }
     }
 
     switch ( $tag ) :

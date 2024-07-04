@@ -18,7 +18,6 @@ require_once __DIR__ . '/../../../inc/version.php';
 //
 define( 'MUDBALL_NAME', 'Mudball: Web Framework and Toolkit for PHP' );
 define( 'MUDBALL_CODE', 'mudball' );
-define( 'MUDBALL', MUDBALL_CODE );
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
