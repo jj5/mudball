@@ -471,7 +471,7 @@ class MudModuleStats extends MudModuleBasic {
 
   }
 
-  protected function is_null_value( $value ) {
+  protected function is_null_value( $value ) : bool {
 
     return ( $value === null || ( is_float( $value ) && is_nan( $value ) ) );
 

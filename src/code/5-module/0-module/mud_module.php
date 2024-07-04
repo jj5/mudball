@@ -50,6 +50,12 @@ function mud_is_prod() : bool {
 
 }
 
+function mud_format_string( string $format, mixed $arg ) : string {
+
+  return mud_module_standard()->format_string( $format, $arg );
+
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 2024-02-08 jj5 - PHP factory methods...
