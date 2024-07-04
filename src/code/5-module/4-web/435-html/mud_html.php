@@ -8,6 +8,29 @@
 require_once __DIR__ . '/../430-session/mud_session.php';
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 2024-07-05 jj5 - module constants...
+//
+
+define( 'MUD_HTML_OPTION_PREFIX',     'opt-'      );
+
+// 2024-07-05 jj5 - when opt-space is true then surrounding whitespace is added to the tag...
+//
+define( 'MUD_HTML_OPT_SPACE',         'opt-space' );
+define( 'MUD_HTML_DEFAULT_OPT_SPACE', true        );
+
+
+// 2024-07-05 jj5 - when opt-break is true then a line breaks are added to the tag...
+//
+define( 'MUD_HTML_OPT_BREAK',         'opt-break' );
+define( 'MUD_HTML_DEFAULT_OPT_BREAK', false       );
+
+// 2024-07-05 jj5 - the op-quote value is the string to use for attribute quote marks... either (') or (")...
+//
+define( 'MUD_HTML_OPT_QUOTE',         'opt-quote' );
+define( 'MUD_HTML_DEFAULT_OPT_QUOTE', '"'         );
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // 2021-04-12 jj5 - module error definitions...
 //

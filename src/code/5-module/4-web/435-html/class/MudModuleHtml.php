@@ -923,6 +923,24 @@ class MudModuleHtml extends MudModuleWeb {
   // 2021-10-18 jj5 - public functions...
   //
 
+  public function get_opt_space( $default = MUD_HTML_DEFAULT_OPT_SPACE ) {
+
+    return $this->get_opt( MUD_HTML_OPT_SPACE, $default );
+
+  }
+
+  public function get_opt_break( $default = MUD_HTML_DEFAULT_OPT_BREAK ) {
+
+    return $this->get_opt( MUD_HTML_OPT_BREAK, $default );
+
+  }
+
+  public function get_opt_quote( $default = MUD_HTML_DEFAULT_OPT_QUOTE ) {
+
+    return $this->get_opt( MUD_HTML_OPT_QUOTE, $default );
+
+  }
+
   public function doc_open() { return count( $this->html_state ) > 0; }
 
   public function doc_is_initialized() {
@@ -1593,18 +1611,6 @@ class MudModuleHtml extends MudModuleWeb {
 
   }
 
-  protected function get_opt_space() {
-
-    return $this->get_opt( 'opt-space', true );
-
-  }
-
-  protected function get_opt_break() {
-
-    return $this->get_opt( 'opt-break', false );
-
-  }
-
   // 2017-06-01 jj5 - TODO: think about validating whether elements are allowed
   // as sub-elements...
   public function tag_open( string $tag, array $attrs = [], $bare = false ) : MudModuleHtml {
@@ -1632,8 +1638,8 @@ class MudModuleHtml extends MudModuleWeb {
 
     // 2024-07-04 jj5 - NOTE: we need to read these before we call fix_attrs() because fix_attrs() will remove them...
     //
-    $opt_break = $this->get_attr( $attrs, 'opt-break', $this->get_opt_break() );
-    $opt_space = $this->get_attr( $attrs, 'opt-space', $this->get_opt_space() );
+    $opt_space = $this->get_attr( $attrs, MUD_HTML_OPT_SPACE, $this->get_opt_space() );
+    $opt_break = $this->get_attr( $attrs, MUD_HTML_OPT_BREAK, $this->get_opt_break() );
 
     $this->fix_attrs( $tag, $attrs );
 
@@ -1642,7 +1648,7 @@ class MudModuleHtml extends MudModuleWeb {
 
     $this->debug_note();
 
-    $attrs_html = $this->attrs_to_html( $attrs, $tag );
+    $attrs_html = $this->attrs_to_html( $attrs, $tag, $opt_break );
 
     if ( $opt_space ) {
 
@@ -2104,7 +2110,9 @@ class MudModuleHtml extends MudModuleWeb {
 
   // 2019-09-13 jj5 - attrs_to_html() used to be public, but now it's not...
   //
-  protected function attrs_to_html( array $attrs, string $tag ) : string {
+  protected function attrs_to_html( array $attrs, string $tag, bool $opt_break ) : string {
+
+    $join = $opt_break ? "\n" : ' ';
 
     if ( DEBUG ) {
 
@@ -2235,14 +2243,18 @@ class MudModuleHtml extends MudModuleWeb {
     // 2017-06-01 jj5 - TODO: implement this function!
 
     $result = '';
-    $quote = $this->get_attr( $attrs, 'opt-quote', '"' );
+    $quote = $this->get_attr( $attrs, MUD_HTML_OPT_QUOTE, $this->get_opt_quote() );
 
     // 2017-06-02 jj5 - TEMP: just for now...
     foreach ( $attrs as $name => $spec ) {
 
+      if ( strpos( $name, MUD_HTML_OPTION_PREFIX ) === 0 ) { continue; }
+
       if ( is_bool( $spec ) ) {
 
-        if ( $spec ) { $result .= ' ' . mud_henc( $name ); }
+        // 2024-07-05 jj5 - TODO: this needs to be done differently for XML...
+
+        if ( $spec ) { $result .= $join . mud_henc( $name ); }
 
       }
       else if ( is_array( $spec ) ) {
@@ -2331,13 +2343,13 @@ class MudModuleHtml extends MudModuleWeb {
 
         if ( count( $parts ) ) {
 
-          $result .= ' ' . mud_henc( $name ) . '=' . $quote . implode( $glue, $parts ) . $quote;
+          $result .= $join . mud_henc( $name ) . '=' . $quote . implode( $glue, $parts ) . $quote;
 
         }
       }
       else {
 
-        $result .= ' ' . mud_henc( $name ) . '=' . $quote . mud_henc( $spec ) . $quote;
+        $result .= $join . mud_henc( $name ) . '=' . $quote . mud_henc( $spec ) . $quote;
 
       }
     }
@@ -2369,12 +2381,14 @@ class MudModuleHtml extends MudModuleWeb {
     static $auto_name = [ 'input', 'select', 'textarea', ];
 
     // 2024-07-04 jj5 - remove any 'opt-' attributes from the attributes list...
-    //
+    // 2024-07-05 jj5 - OLD: we don't remove these here any more, rather we ignore them when generating the HTML...
+    /*
     foreach ( $attrs as $key => $val ) {
 
-      if ( strpos( $key, 'opt-' ) === 0 ) { unset( $attrs[ $key ] ); }
+      if ( strpos( $key, MUD_HTML_OPTION_PREFIX ) === 0 ) { unset( $attrs[ $key ] ); }
 
     }
+    */
 
     // 2021-10-20 jj5 - I don't think we need this...
     /*
