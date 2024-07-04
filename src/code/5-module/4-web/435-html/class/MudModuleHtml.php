@@ -2207,6 +2207,29 @@ class MudModuleHtml extends MudModuleWeb {
 
         break;
 
+      case 'h1' :
+      case 'h2' :
+      case 'h3' :
+      case 'h4' :
+      case 'h5' :
+      case 'h6' :
+
+        if ( ! isset( $attrs[ 'id' ] ) ) {
+
+          if ( $tag === 'h1' ) {
+            
+            $attrs[ 'id' ] = 'heading';
+            
+          }
+          else {
+
+            if ( DEBUG ) { mud_fail( 'Please provide an id for heading elements.' ); }
+
+          }
+        }
+
+        break;
+
     endswitch;
 
     // 2017-06-01 jj5 - TODO: implement this function!
