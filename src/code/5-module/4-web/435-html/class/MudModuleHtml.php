@@ -927,9 +927,9 @@ class MudModuleHtml extends MudModuleWeb {
 
     // 2024-07-05 jj5 - HACK: this override is probably quite useful...
     //
-    return DEBUG;
+    $default = DEBUG;
 
-    //return $this->get_opt( MUD_HTML_OPT_SPACE, $default );
+    return $this->get_opt( MUD_HTML_OPT_SPACE, $default );
 
   }
 
@@ -937,9 +937,9 @@ class MudModuleHtml extends MudModuleWeb {
 
     // 2024-07-05 jj5 - HACK: this override is probably quite useful...
     //
-    return ! DEBUG;
+    $default = ! DEBUG;
 
-    //return $this->get_opt( MUD_HTML_OPT_BREAK, $default );
+    return $this->get_opt( MUD_HTML_OPT_BREAK, $default );
 
   }
 
