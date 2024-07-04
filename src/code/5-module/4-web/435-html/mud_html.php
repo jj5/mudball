@@ -12,23 +12,37 @@ require_once __DIR__ . '/../430-session/mud_session.php';
 // 2024-07-05 jj5 - module constants...
 //
 
-define( 'MUD_HTML_OPTION_PREFIX',     'opt-'      );
+// 2024-07-05 jj5 - NOTE: options can be set at the module level or at the element attribute level...
 
-// 2024-07-05 jj5 - when opt-space is true then surrounding whitespace is added to the tag...
+// 2024-07-05 jj5 - all options are prefixed with 'opt-'...
 //
-define( 'MUD_HTML_OPT_SPACE',         'opt-space' );
-define( 'MUD_HTML_DEFAULT_OPT_SPACE', true        );
+define( 'MUD_HTML_OPTION_PREFIX',           'opt-'            );
 
-
-// 2024-07-05 jj5 - when opt-break is true then a line breaks are added to the tag...
+// 2024-07-05 jj5 - when opt-space is true then surrounding whitespace is added to the element...
 //
-define( 'MUD_HTML_OPT_BREAK',         'opt-break' );
-define( 'MUD_HTML_DEFAULT_OPT_BREAK', false       );
+define( 'MUD_HTML_OPT_SPACE',               'opt-space'       );
+define( 'MUD_HTML_DEFAULT_OPT_SPACE',       true              );
+
+
+// 2024-07-05 jj5 - when opt-break is true then line breaks are added to the element...
+//
+define( 'MUD_HTML_OPT_BREAK',               'opt-break'       );
+define( 'MUD_HTML_DEFAULT_OPT_BREAK',       false             );
 
 // 2024-07-05 jj5 - the op-quote value is the string to use for attribute quote marks... either (') or (")...
 //
-define( 'MUD_HTML_OPT_QUOTE',         'opt-quote' );
-define( 'MUD_HTML_DEFAULT_OPT_QUOTE', '"'         );
+define( 'MUD_HTML_OPT_QUOTE',               'opt-quote'       );
+define( 'MUD_HTML_DEFAULT_OPT_QUOTE',       '"'               );
+
+// 2024-07-05 jj5 - when true the XSRF token is automatically added to HTML <form method=POST> forms.
+//
+define( 'MUD_HTML_OPT_AUTOXSRF',            'opt-autoxsrf'    );
+define( 'MUD_HTML_DEFAULT_OPT_AUTOXSRF',    true              );
+
+// 2024-07-05 jj5 - this affects some of the string functionality...
+//
+define( 'MUD_HTML_OPT_MAX_LENGTH',          'opt-max-length'  );
+define( 'MUD_HTML_DEFAULT_OPT_MAX_LENGTH',  32                );
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1420,3 +1420,5 @@ define( 'MUD_HTML_OPT_BREAK', "opt-break" );
 define( 'MUD_HTML_DEFAULT_OPT_BREAK', false );
 define( 'MUD_HTML_OPT_QUOTE', "opt-quote" );
 define( 'MUD_HTML_DEFAULT_OPT_QUOTE', "\"" );
+define( 'MUD_HTML_OPT_AUTOXSRF', "opt-autoxsrf" );
+define( 'MUD_HTML_DEFAULT_OPT_AUTOXSRF', "\"" );

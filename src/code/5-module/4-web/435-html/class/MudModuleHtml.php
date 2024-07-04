@@ -923,31 +923,56 @@ class MudModuleHtml extends MudModuleWeb {
   // 2021-10-18 jj5 - public functions...
   //
 
-  public function get_opt_space( $default = MUD_HTML_DEFAULT_OPT_SPACE ) {
-
-    // 2024-07-05 jj5 - HACK: this override is probably quite useful...
-    //
-    $default = DEBUG;
+  public function get_opt_space( bool $default = MUD_HTML_DEFAULT_OPT_SPACE ) : bool {
 
     return $this->get_opt( MUD_HTML_OPT_SPACE, $default );
 
   }
 
-  public function get_opt_break( $default = MUD_HTML_DEFAULT_OPT_BREAK ) {
-
-    // 2024-07-05 jj5 - HACK: this override is probably quite useful...
-    //
-    $default = ! DEBUG;
+  public function get_opt_break( bool $default = MUD_HTML_DEFAULT_OPT_BREAK ) : bool {
 
     return $this->get_opt( MUD_HTML_OPT_BREAK, $default );
 
   }
 
-  public function get_opt_quote( $default = MUD_HTML_DEFAULT_OPT_QUOTE ) {
+  public function get_opt_quote( string $default = MUD_HTML_DEFAULT_OPT_QUOTE ) : string {
 
     return $this->get_opt( MUD_HTML_OPT_QUOTE, $default );
 
   }
+
+  public function get_opt_autoxsrf( bool $default = MUD_HTML_DEFAULT_OPT_AUTOXSRF ) : bool {
+
+    return $this->get_opt( MUD_HTML_OPT_AUTOXSRF, $default );
+
+  }
+
+  public function get_opt_max_length( int $default = MUD_HTML_DEFAULT_OPT_MAX_LENGTH ) : int {
+
+    return $this->get_opt( MUD_HTML_OPT_MAX_LENGTH, $default );
+
+  }
+
+  // 2017-06-01 jj5 - set a HTML output option...
+  public function get_opt( string $option, mixed $default = null ) : mixed {
+
+    $options = $this->html_state[ 'options' ];
+
+    if ( ! array_key_exists( $option, $options ) ) { return $default; }
+
+    return $options[ $option ];
+
+  }
+
+  // 2017-06-01 jj5 - set a HTML output option...
+  public function set_opt( string $option, mixed $value ) : MudModuleHtml {
+
+    $this->html_state[ 'options' ][ $option ] = $value;
+
+    return $this;
+
+  }
+
 
   public function doc_open() { return count( $this->html_state ) > 0; }
 
@@ -1115,32 +1140,6 @@ class MudModuleHtml extends MudModuleWeb {
   public function get_setting( string $setting ) {
 
     return $this->html_state[ $setting ];
-
-  }
-
-  public function get_opt_autoxsrf() : bool {
-
-    return $this->get_opt( 'autoxsrf' );
-
-  }
-
-  // 2017-06-01 jj5 - set a HTML output option...
-  public function set_opt( string $option, $value ) : MudModuleHtml {
-
-    $this->html_state[ 'options' ][ $option ] = $value;
-
-    return $this;
-
-  }
-
-  // 2017-06-01 jj5 - set a HTML output option...
-  public function get_opt( string $option, $default = null ) {
-
-    $options = $this->html_state[ 'options' ];
-
-    if ( ! array_key_exists( $option, $options ) ) { return $default; }
-
-    return $options[ $option ];
 
   }
 
@@ -1646,8 +1645,8 @@ class MudModuleHtml extends MudModuleWeb {
 
     // 2024-07-04 jj5 - NOTE: we need to read these before we call fix_attrs() because fix_attrs() will remove them...
     //
-    $opt_space = $this->get_attr( $attrs, MUD_HTML_OPT_SPACE, $this->get_opt_space() );
-    $opt_break = $this->get_attr( $attrs, MUD_HTML_OPT_BREAK, $this->get_opt_break() );
+    $opt_space = $this->get_attr( $attrs, MUD_HTML_OPT_SPACE, $this->get_opt_space( DEBUG ) );
+    $opt_break = $this->get_attr( $attrs, MUD_HTML_OPT_BREAK, $this->get_opt_break( ! DEBUG ) );
 
     $this->fix_attrs( $tag, $attrs );
 
@@ -2461,8 +2460,15 @@ class MudModuleHtml extends MudModuleWeb {
       'stack-attrs' => [],
       'stack-form-errors' => [],
       'options' => [
-        'autoxsrf' => true,
-        'max-length' => 32,
+        // 2024-07-05 jj5 - OLD: it's better if we don't set these here, because when they are unset we can fallback to
+        // the default value specified by the programmer, which is handy.
+        /*
+        MUD_HTML_OPT_SPACE      => MUD_HTML_DEFAULT_OPT_SPACE,
+        MUD_HTML_OPT_BREAK      => MUD_HTML_DEFAULT_OPT_BREAK,
+        MUD_HTML_OPT_QUOTE      => MUD_HTML_DEFAULT_OPT_QUOTE,
+        MUD_HTML_OPT_AUTOXSRF   => MUD_HTML_DEFAULT_OPT_AUTOXSRF,
+        MUD_HTML_OPT_MAX_LENGTH => MUD_HTML_DEFAULT_OPT_MAX_LENGTH,
+        */
       ],
       'id_map' => [],
     ];
@@ -2712,7 +2718,7 @@ class MudModuleHtml extends MudModuleWeb {
 
       case MUD_HTML_COL_TYPE_STRING :
 
-        $max_length = $this->get_opt( 'max-length', 32 );
+        $max_length = $this->get_opt_max_length();
         $ondblclick =
           $this->get_opt( 'ondblclick', 'mud_show_long(this,event)' );
 
