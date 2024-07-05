@@ -1424,3 +1424,4 @@ define( 'MUD_HTML_OPT_AUTOXSRF', "opt-autoxsrf" );
 define( 'MUD_HTML_DEFAULT_OPT_AUTOXSRF', true );
 define( 'MUD_HTML_OPT_MAX_LENGTH', "opt-max-length" );
 define( 'MUD_HTML_DEFAULT_OPT_MAX_LENGTH', 32 );
+define( 'MUD_PCLOG_API', "http://localhost/log/api" );
