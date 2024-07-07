@@ -47,6 +47,10 @@ define( 'MUDBALL_CONFIG_PATH', MUDBALL_PATH . '/' . MUDBALL_CONFIG_FILE );
 
   if ( ! defined( 'DEV'   ) ) { define( 'DEV',    false ); }
 
+  if ( ! defined( 'BETA'  ) ) { define( 'BETA',   false ); }
+
+  if ( ! defined( 'TEST'  ) ) { define( 'TEST',   false ); }
+
 })();
 
 
