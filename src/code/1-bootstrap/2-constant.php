@@ -40,6 +40,13 @@ define( 'MUDBALL_CONFIG_PATH', MUDBALL_PATH . '/' . MUDBALL_CONFIG_FILE );
 
   if ( file_exists( $app_config ) ) { require_once $app_config; }
 
+  // 2024-07-07 jj5 - having now loaded both of the config files (if they exist) we can now define the DEBUG and DEV
+  // constants...
+
+  if ( ! defined( 'DEBUG' ) ) { define( 'DEBUG',  false ); }
+
+  if ( ! defined( 'DEV'   ) ) { define( 'DEV',    false ); }
+
 })();
 
 
