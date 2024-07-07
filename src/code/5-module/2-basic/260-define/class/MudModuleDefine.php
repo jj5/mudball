@@ -129,7 +129,7 @@ class MudModuleDefine extends MudModuleBasic {
 
     }
 
-    if ( $vcs_revision ) {
+    if ( defined( 'DEV' ) && DEV && $vcs_revision ) {
 
       $version .= "-$vcs_revision";
 
