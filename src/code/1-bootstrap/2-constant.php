@@ -16,8 +16,8 @@ require_once __DIR__ . '/../../../inc/version.php';
 
 // 2021-03-18 jj5 - you can change the name but not the code...
 //
-define( 'MUDBALL_NAME', 'Mudball: Web Framework and Toolkit for PHP' );
-define( 'MUDBALL_CODE', 'mudball' );
+//define( 'MUDBALL_NAME', 'Mudball: Web Framework and Toolkit for PHP' );
+//define( 'MUDBALL_CODE', 'mudball' );
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
