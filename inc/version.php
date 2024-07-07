@@ -6,7 +6,7 @@
 define( 'MUDBALL_NAME', 'Mudball: Web Framework and Toolkit for PHP' );
 define( 'MUDBALL_CODE', 'mudball' );
 
-define( 'MUDBALL_VERSION', '0.5.1549' );
+//define( 'MUDBALL_VERSION', '0.5.1549' );
 define( 'MUDBALL_VERSION_MAJOR', 0 );
 define( 'MUDBALL_VERSION_MINOR', 5 );
 define( 'MUDBALL_VERSION_PATCH', 1549 );
