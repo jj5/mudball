@@ -973,7 +973,6 @@ class MudModuleHtml extends MudModuleWeb {
 
   }
 
-
   public function doc_open() { return count( $this->html_state ) > 0; }
 
   public function doc_is_initialized() {
@@ -2437,6 +2436,20 @@ class MudModuleHtml extends MudModuleWeb {
 
       $this->html_state[ 'id_map' ][ $id ] = true;
 
+    }
+
+    foreach ( $attrs as $key => $val ) {
+
+      if ( is_string( $val ) ) { continue; }
+
+      if ( is_int( $val ) ) { continue; }
+
+      if ( is_bool( $val ) ) { continue; }
+
+      //error_log( "tag: $tag; key: $key; type: " . gettype( $val ) );
+
+      $attrs[ $key ] = strval( $val );
+    
     }
   }
 
