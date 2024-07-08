@@ -1586,7 +1586,7 @@ class MudModuleHtml extends MudModuleWeb {
   //
   public function tag_bare( string $tag, array $attrs = [] ) : MudModuleHtml {
 
-    return $this->tag_open( $tag, $attrs, $bare = true )->tag_shut( $tag, $attrs, $bare = true );
+    return $this->tag_open( $tag, $attrs, $bare = true )->tag_shut( $tag, [], $bare = true );
 
   }
 
