@@ -1586,7 +1586,7 @@ class MudModuleHtml extends MudModuleWeb {
   //
   public function tag_bare( string $tag, array $attrs = [] ) : MudModuleHtml {
 
-    return $this->tag_open( $tag, $attrs, $bare = true )->tag_shut( $tag, [], $bare = true );
+    return $this->tag_open( $tag, $attrs, $bare = true )->tag_shut( $tag, $attrs, $bare = true );
 
   }
 
@@ -1763,6 +1763,8 @@ class MudModuleHtml extends MudModuleWeb {
       );
 
     }
+
+    $this->fix_attrs( $tag, $attrs );
 
     // 2017-06-01 jj5 - TODO: get the elements which don't need to be (or can't
     // be) closed...
@@ -2464,6 +2466,33 @@ class MudModuleHtml extends MudModuleWeb {
 
       $attrs[ $key ] = strval( $val );
     
+    }
+
+    switch ( $tag ) {
+
+      case 'img' :
+
+        if ( isset( $attrs[ 'alt' ] ) && ! isset( $attrs[ 'title' ] ) ) {
+
+          $attrs[ 'title' ] = $attrs[ 'alt' ];
+
+        }
+        elseif( isset( $attrs[ 'title' ] ) && ! isset( $attrs[ 'alt' ] ) ) {
+
+          $attrs[ 'alt' ] = $attrs[ 'title' ];
+
+        }
+
+        if ( ! isset( $attrs[ 'alt' ] ) ) {
+
+          $attrs[ 'alt' ] = '';
+
+        }
+
+        break;
+
+      default :
+      
     }
   }
 
