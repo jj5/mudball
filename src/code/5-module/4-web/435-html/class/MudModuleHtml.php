@@ -2446,6 +2446,20 @@ class MudModuleHtml extends MudModuleWeb {
 
       if ( is_bool( $val ) ) { continue; }
 
+      if ( is_array( $val ) ) {
+
+        foreach ( $val as $index => $item ) {
+
+          if ( is_string( $item ) ) { continue; }
+
+          $attrs[ $key ][ $index ] = strval( $item );
+
+        }
+
+       continue;
+
+      }
+
       //error_log( "tag: $tag; key: $key; type: " . gettype( $val ) );
 
       $attrs[ $key ] = strval( $val );
