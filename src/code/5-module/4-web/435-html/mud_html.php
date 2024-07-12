@@ -334,7 +334,12 @@ function attrs_to_html( array $attrs, string $tag ) : string {
 }
 */
 
+// 2024-07-12 jj5 - NOTE: for the various out_*() functions I check the number of args is one. What can happen is that
+// and out_*() function is called as a tag_*() function which is a common mistake. This check will catch that mistake.
+
 function out_line( int $lines = 1 ) : MudModuleHtml {
+
+  assert( func_num_args() === 1 );
 
   return mud_module_html()->out_line( $lines );
 
@@ -342,17 +347,23 @@ function out_line( int $lines = 1 ) : MudModuleHtml {
 
 function out_html( $html ) :MudModuleHtml {
 
+  assert( func_num_args() === 1 );
+
   return mud_module_html()->out_html( $html );
 
 }
 
 function out_text( $text ) : MudModuleHtml {
 
+  assert( func_num_args() === 1 );
+
   return mud_module_html()->out_text( $text );
 
 }
 
 function out_code( $code ) : MudModuleHtml {
+
+  assert( func_num_args() === 1 );
 
   return mud_module_html()->out_code( $code );
 
