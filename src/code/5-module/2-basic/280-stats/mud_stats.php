@@ -16,6 +16,7 @@ define( 'MUD_STATS_TYPE',                           'type'        );
 define( 'MUD_STATS_NULL',                           'null'        );
 define( 'MUD_STATS_COUNT',                          'count'       );
 define( 'MUD_STATS_DISTINCT',                       'distinct'    );
+define( 'MUD_STATS_TOTAL',                          'total'       );
 define( 'MUD_STATS_MINIMUM',                        'min'         );
 define( 'MUD_STATS_MAXIMUM',                        'max'         );
 define( 'MUD_STATS_RANGE',                          'range'       );
@@ -35,6 +36,7 @@ define(
     MUD_STATS_NULL                          => 'null count',
     MUD_STATS_COUNT                         => 'non-null count',
     MUD_STATS_DISTINCT                      => 'distinct non-null count',
+    MUD_STATS_TOTAL                         => 'total',
     MUD_STATS_MINIMUM                       => 'minimum value',
     MUD_STATS_MAXIMUM                       => 'maximum value',
     MUD_STATS_RANGE                         => 'value range',

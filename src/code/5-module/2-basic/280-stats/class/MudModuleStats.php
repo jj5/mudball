@@ -54,6 +54,7 @@ class MudModuleStats extends MudModuleBasic {
       //
       MUD_STATS_DISTINCT                      => 0,
 
+      MUD_STATS_TOTAL                         => 0,
       MUD_STATS_MINIMUM                       => null,
       MUD_STATS_MAXIMUM                       => null,
       MUD_STATS_RANGE                         => null,
@@ -164,6 +165,8 @@ class MudModuleStats extends MudModuleBasic {
       else {
 
         $value = $parser( $value );
+
+        $stats[ MUD_STATS_TOTAL ] += $value;
 
         if ( count( $data ) === 0 ) {
 

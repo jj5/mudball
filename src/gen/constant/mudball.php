@@ -1425,3 +1425,4 @@ define( 'MUD_ERR_ACTION_INVALID_PROCESSOR', 10115 );
 define( 'MUD_ERR_HOST_INCLUDE_NOT_A_FACILITY', 10116 );
 define( 'MUD_ERR_HOST_UNAUTHOIRZED', 10117 );
 define( 'MUD_PCLOG_API', "http://localhost/log/api" );
+define( 'MUD_STATS_TOTAL', "total" );
