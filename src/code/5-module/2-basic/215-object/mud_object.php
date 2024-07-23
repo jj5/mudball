@@ -30,8 +30,8 @@ require_once __DIR__ . '/1-interface/1-model/7-IMudComposite.php';
 require_once __DIR__ . '/1-interface/1-model/8-IMudThing.php';
 
 require_once __DIR__ . '/1-interface/2-value/10-IMudNumber.php';
-require_once __DIR__ . '/1-interface/2-value/11-IMudBoolean.php';
-require_once __DIR__ . '/1-interface/2-value/12-IMudInteger.php';
+require_once __DIR__ . '/1-interface/2-value/11-IMudInteger.php';
+require_once __DIR__ . '/1-interface/2-value/12-IMudBoolean.php';
 require_once __DIR__ . '/1-interface/2-value/13-IMudFloat.php';
 require_once __DIR__ . '/1-interface/2-value/14-IMudSign.php';
 require_once __DIR__ . '/1-interface/2-value/20-IMudString.php';
@@ -80,8 +80,8 @@ require_once __DIR__ . '/2-class/1-base/7-MudComposite.php';
 require_once __DIR__ . '/2-class/1-base/8-MudThing.php';
 
 require_once __DIR__ . '/2-class/2-value/10-MudNumber.php';
-require_once __DIR__ . '/2-class/2-value/11-MudBoolean.php';
-require_once __DIR__ . '/2-class/2-value/12-MudInteger.php';
+require_once __DIR__ . '/2-class/2-value/11-MudInteger.php';
+require_once __DIR__ . '/2-class/2-value/12-MudBoolean.php';
 require_once __DIR__ . '/2-class/2-value/13-MudFloat.php';
 require_once __DIR__ . '/2-class/2-value/14-MudSign.php';
 require_once __DIR__ . '/2-class/2-value/20-MudString.php';

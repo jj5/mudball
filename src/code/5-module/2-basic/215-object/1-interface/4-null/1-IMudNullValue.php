@@ -1,6 +1,7 @@
 <?php
 
 interface IMudNullValue extends
+  IMudObject,
   IMudFalse,
   IMudInteger,
   IMudFloat,

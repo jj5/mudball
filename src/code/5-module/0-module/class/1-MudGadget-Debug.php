@@ -1,6 +1,5 @@
 <?php
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 2024-02-08 jj5 - class definition...
 //
@@ -34,10 +33,10 @@ abstract class MudGadget implements JsonSerializable {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-02-08 jj5 - private static fields...
+  // 2024-07-23 jj5 - private static fields...
   //
 
-  private static int $counter = 0;
+  private static int $log_depth = 0;
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,7 +52,10 @@ abstract class MudGadget implements JsonSerializable {
 
   public function __construct() {
 
-    $this->set_oid( self::new_oid() );
+    // 2024-07-23 jj5 - NOTE: object IDs are out until we have a specific use case for them.
+    //$this->set_oid( self::new_oid() );
+
+    $this->count_increment();
 
     $this->is_constructed = true;
 
@@ -85,23 +87,8 @@ abstract class MudGadget implements JsonSerializable {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-02-08 jj5 - public static methods...
-  //
-
-  public static function new_oid() : int {
-
-    self::$counter++;
-
-    return self::$counter;
-
-  }
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-02-07 jj5 - process tracing...
   //
-
-  private static int $log_depth = 0;
 
   protected function trace_init( string $message, mixed $context = null ) : int {
 

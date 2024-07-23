@@ -36,6 +36,10 @@ abstract class MudObject extends MudGadget implements IMudObject {
 
   public function format( mixed $spec = null ) : string { return $this->to_string(); }
 
+  public function get_format( mixed $spec = null ) : mixed { return $spec === null ? $this->get_format_default() : $spec; }
+
+  public function get_format_default() : mixed { return null; }
+
   public function render( mixed $format = null, array $attrs = [] ) : void { ; }
 
   public function validate( mixed $options = null ) : void {

@@ -1,12 +1,12 @@
 <?php
 
-interface IMudValue extends IMudHost, IMudNullable {
+interface IMudValue extends IMudHost {
 
   public function is_empty() : bool;
 
   public function is_zero() : bool;
 
-  public function is_integer( int $n ) : bool;
+  public function is_integer( int $compare ) : bool;
 
   public function is_nan() : bool;
 

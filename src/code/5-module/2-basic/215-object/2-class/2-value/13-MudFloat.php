@@ -9,21 +9,14 @@ class MudFloat extends MudNumber implements IMudFloat {
 
   private float $value;
 
-  private float $max_value;
-
-  private float $min_value;
-
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-29 jj5 - constructor...
   //
 
-  public function __construct( float $value, float $max_value = INF, float $min_value = -INF ) {
+  public function __construct( float $value ) {
 
     $this->value = $value;
-
-    $this->max_value = $max_value;
-    $this->min_value = $min_value;
 
   }
 
@@ -48,7 +41,7 @@ class MudFloat extends MudNumber implements IMudFloat {
 
   public function is_valid( mixed $options = null ) : bool {
 
-    return $this->value >= $this->min_value && $this->value <= $this->max_value;
+    return $this->value >= $this->get_value_min() && $this->value <= $this->get_value_max();
 
   }
 
@@ -74,6 +67,8 @@ class MudFloat extends MudNumber implements IMudFloat {
 
   public function format( mixed $spec = null ) : string {
 
+    $spec = $this->get_format( $spec );
+
     $decimals = intval( $spec ?? 0 );
 
     return number_format( $this->value, $decimals, '.', ',' );
@@ -87,5 +82,9 @@ class MudFloat extends MudNumber implements IMudFloat {
 
 
   public function get_number() : float|int { return $this->value; }
+
+  public function get_value_min() : int|float { return -INF; }
+
+  public function get_value_max() : int|float { return INF; }
 
 }

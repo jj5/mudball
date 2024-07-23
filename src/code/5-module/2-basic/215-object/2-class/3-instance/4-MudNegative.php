@@ -60,6 +60,10 @@ class MudNegative extends MudSign implements IMudNegative {
 
   public function get_number() : float|int { return MUD_VALUE_NEGATIVE_FACTOR; }
 
+  public function get_value_min() : int|float { return -1; }
+
+  public function get_value_max() : int|float { return -1; }
+
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-30 jj5 - IMudSign interface...

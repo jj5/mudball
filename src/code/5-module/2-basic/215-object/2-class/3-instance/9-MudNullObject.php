@@ -35,6 +35,10 @@ class MudNullValue implements IMudNullValue {
 
   public function format( mixed $spec = null ) : string { return ''; }
 
+  public function get_format( mixed $spec = null ) : mixed { return null; }
+
+  public function get_format_default() : mixed { return null; }
+
   public function render( mixed $format = null, array $attrs = [] ) : void { ; }
 
   public function validate( mixed $options = null ) : void { ; }
@@ -128,6 +132,10 @@ class MudNullValue implements IMudNullValue {
 
   public function get_number() : int|float { return 0; }
 
+  public function get_value_min() : int|float { return 0; }
+
+  public function get_value_max() : int|float { return 0; }
+
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-30 jj5 - IMudBoolean interface...
@@ -156,6 +164,14 @@ class MudNullValue implements IMudNullValue {
   //
 
   public function get_hash() : string { return ''; }
+
+  public function get_length_min() : int { return 0; }
+
+  public function get_length_max() : int { return 0; }
+
+  public function get_regex_valid() : array { return []; }
+
+  public function get_regex_invalid() : array { return []; }
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

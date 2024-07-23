@@ -14,7 +14,18 @@ require_once __DIR__ . '/../../1-bootstrap/4-config.php';
 
 require_once __DIR__ . '/trait/MudMixin.php';
 
-require_once __DIR__ . '/class/1-MudGadget.php';
+if ( DEBUG ) {
+
+  require_once __DIR__ . '/class/1-MudGadget-Debug.php';
+
+}
+else {
+
+  require_once __DIR__ . '/class/1-MudGadget-Prod.php';
+
+}
+
+
 require_once __DIR__ . '/class/2-MudService.php';
 require_once __DIR__ . '/class/3-MudModule.php';
 require_once __DIR__ . '/class/6-MudFactory.php';

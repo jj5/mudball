@@ -9,6 +9,21 @@
 
 trait MudMixin {
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-23 jj5 - private static fields...
+  //
+
+  private static int $counter = 0;
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-23 jj5 - private fields...
+  //
+
+  // 2024-07-23 jj5 - NOTE: object IDs are out until we have a specific use case for them.
+  //
+  //private int|false $oid = false;
+
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-02-06 jj5 - JsonSerializable interface...
@@ -34,15 +49,38 @@ trait MudMixin {
   // 2024-02-07 jj5 - Object ID...
   //
 
-  private int|false $oid = false;
+  protected function count_increment() : void {
 
-  public function get_oid() : int|false { return $this->oid; }
+    self::$counter++;
+
+  }
+
+  public static function new_oid() : int {
+
+    mud_not_implemented();
+
+    return 0;
+
+  }
+
+  public function get_oid() : int|false {
+    
+    mud_not_implemented();
+
+    return false;
+
+  }
 
   protected function set_oid( int $oid ) : void {
 
-    $this->oid = $oid;
+    mud_not_implemented();
 
   }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-23 jj5 - protected static methods...
+  //
 
   protected static function get_constant_or_default( string $name, mixed $default = null ) : mixed {
 

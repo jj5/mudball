@@ -7,7 +7,7 @@ define( 'MUD_BOOLEAN_FORMAT_JSON_PRETTY', 'json-pretty' );
 define( 'MUD_BOOLEAN_FORMAT_YES_NO', 'yes/no' );
 define( 'MUD_BOOLEAN_FORMAT_ON_OFF', 'on/off' );
 
-abstract class MudBoolean extends MudNumber implements IMudBoolean {
+abstract class MudBoolean extends MudInteger implements IMudBoolean {
 
   public function format( mixed $spec = null ) : string {
 

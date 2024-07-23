@@ -1,6 +1,6 @@
 <?php
 
-interface IMudBoolean extends IMudNumber {
+interface IMudBoolean extends IMudInteger {
 
   public function is_true() : bool;
 
