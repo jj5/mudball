@@ -49,8 +49,11 @@ class MudModuleExit extends MudModuleCritical {
 
     }
 
-    parent::__destruct();
+    if ( method_exists( parent::class, '__destruct' ) ) {
 
+      parent::__destruct();
+
+    }
   }
 
 
