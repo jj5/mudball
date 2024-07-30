@@ -18,7 +18,7 @@ class MudNode extends MudHost implements IMudNode {
 
   public function get_grandparent() : IMudNode {
 
-    return $this->get_parent()->get_parent( $class );
+    return $this->get_parent()->get_parent();
 
   }
 

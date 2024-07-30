@@ -105,7 +105,6 @@ abstract class MudMoney extends MudInteger implements IMudMoney {
       
       $position = $value_length - $having_digits + $target_digits;
       
-      /** @psalm-var non-negative-int $addend */
       $addend = 1;
 
       while ( $position > 0 ) {
@@ -116,7 +115,6 @@ abstract class MudMoney extends MudInteger implements IMudMoney {
           
           $money_value[ $position - 1 ] = $new_value[ 1 ];
           
-          /** @psalm-var numeric-string $addend */
           $addend = $new_value[ 0 ];
 
           $position--;

@@ -1574,7 +1574,7 @@ class MudModuleHtml extends MudModuleWeb {
 
     if ( $value === null ) { $value = ''; }
 
-    if ( ! is_string( $value ) ) { $value = mud_json_encode( $value ); }
+    if ( ! is_string( $value ) ) { $value = mud_json_pretty( $value ); }
 
     return $this->tag_text( $tag, $value, $attrs );
 
@@ -2758,7 +2758,7 @@ class MudModuleHtml extends MudModuleWeb {
         //
         mud_not_supported( [ 'type' => $type, 'field' => $field ] );
 
-        return $field ? mud_henc( format_currency( $field ) ) : '';
+        //return $field ? mud_henc( format_currency( $field ) ) : '';
 
       case MUD_HTML_COL_TYPE_DOLLARS :
 
@@ -2766,7 +2766,7 @@ class MudModuleHtml extends MudModuleWeb {
         //
         mud_not_supported( [ 'type' => $type, 'field' => $field ] );
 
-        return $field ? henc( format_currency( round( $field ) ) ) : '';
+        //return $field ? henc( format_currency( round( $field ) ) ) : '';
 
       case MUD_HTML_COL_TYPE_TEXT :
 
@@ -2887,10 +2887,12 @@ class MudModuleHtml extends MudModuleWeb {
         //
         mud_not_supported( [ 'type' => $type, 'field' => $field ] );
 
+        /*
         return
           '<textarea>' .
             henc( x_www_form_urldecode( $field ) ) .
           '</textarea>';
+        */
 
       default :
 

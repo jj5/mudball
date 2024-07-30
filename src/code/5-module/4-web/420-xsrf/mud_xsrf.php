@@ -28,9 +28,9 @@ require_once __DIR__ . '/class/MudModuleXsrf.php';
 // 2020-04-16 jj5 - functional interface...
 //
 
-function mud_xsrf_configure( string $token_curr, $token_prev = null ) {
+function mud_xsrf_configure( string $token ) {
 
-  return mud_module_xsrf()->configure( $token_curr, $token_prev );
+  return mud_module_xsrf()->configure( $token );
 
 }
 

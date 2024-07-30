@@ -37,11 +37,13 @@ require_once __DIR__ . '/class/9-MudModuleStandard.php';
 // 2024-02-08 jj5 - functional interface...
 //
 
+// 2024-07-30 jj5 - this improves performance...
+
 function mud_is_debug() : bool {
 
   return DEBUG;
 
-  return mud_module_standard()->is_debug();
+  //return mud_module_standard()->is_debug();
 
 }
 
@@ -49,7 +51,7 @@ function mud_is_dev() : bool {
 
   return DEV;
 
-  return mud_module_standard()->is_dev();
+  //return mud_module_standard()->is_dev();
 
 }
 
@@ -57,7 +59,7 @@ function mud_is_beta() : bool {
 
   return BETA;
 
-  return mud_module_standard()->is_beta();
+  //return mud_module_standard()->is_beta();
 
 }
 
@@ -65,7 +67,7 @@ function mud_is_prod() : bool {
 
   return PROD;
 
-  return mud_module_standard()->is_prod();
+  //return mud_module_standard()->is_prod();
 
 }
 

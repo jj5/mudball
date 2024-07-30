@@ -7,7 +7,7 @@ abstract class MudValue extends MudHost implements IMudValue {
   // 2024-07-01 jj5 - IMudValue interface...
   //
 
-  public function is_zero() : bool { return $this->is_integer( 0 ); }
+  public function is_zero() : bool { return $this->to_int() === 0; }
 
   // 2024-06-30 jj5 - NOTE: this is a useful default implementation...
   //
