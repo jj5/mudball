@@ -7,8 +7,6 @@ class MudStash extends MudGadget {
   // 2024-07-30 jj5 - private fields...
   //
 
-  private string $name;
-
   private string $dir_path;
 
   private string $file_path;
@@ -24,11 +22,11 @@ class MudStash extends MudGadget {
 
     parent::__construct();
 
-    $this->name = $name;
-
     $this->dir_path = '/var/state/' . APP_CODE . '/stash/' . date( 'Y/m/d' );
 
     $this->file_path = $this->dir_path . '/' . $name . '.json';
+
+    $this->data = null;
 
     $this->read_data();
 
@@ -38,12 +36,6 @@ class MudStash extends MudGadget {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-07-30 jj5 - public instance methods...
   //
-
-  public function get_name() : string { return $this->name; }
-
-  public function get_dir_path() : string { return $this->dir_path; }
-
-  public function get_file_path() : string { return $this->file_path; }
 
   public function get_data() : mixed {
 
@@ -57,22 +49,6 @@ class MudStash extends MudGadget {
     
   }
 
-  public function read_data() : void {
-
-    if ( file_exists( $this->file_path ) ) {
-
-      $json = file_get_contents( $this->file_path );
-
-      $this->data = json_decode( $json, true );
-
-    }
-    else {
-
-      $this->data = null;
-
-    }
-  }
-
   public function set_data( mixed $data ) : bool {
 
     if ( $this->do_set_data( $data ) ) {
@@ -83,7 +59,62 @@ class MudStash extends MudGadget {
 
     }
 
-    error_log( 'failed to set data: ' . $this->file_path );
+    $this->error_log( 'failed to set data for: ' . $this->file_path );
+
+    return false;
+
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-30 jj5 - protected instance methods...
+  //
+
+  protected function read_data() : void {
+
+    $this->do_read_data();
+
+  }
+  
+  protected function do_read_data() : bool {
+
+    for ( $try = 1; $try < 10; $try++ ) {
+
+      if ( ! file_exists( $this->file_path ) ) {
+
+        $this->error_log( 'file not found: ' . $this->file_path );
+
+        continue;
+
+      }
+
+      $json = file_get_contents( $this->file_path );
+
+      if ( $json === false ) {
+
+        $this->error_log( 'failed to get contents: ' . $this->file_path );
+
+        continue;
+
+      }
+
+      $data = json_decode( $json, true );
+
+      if ( json_last_error() ) {
+
+        $this->error_log( 'failed to decode json for: ' . $this->file_path . ': ' . json_last_error_msg() );
+
+        continue;
+
+      }
+
+      $this->data = $data;
+
+      return true;
+
+    }
+
+    $this->error_log( 'retries exhausted reading stash: ' . $this->file_path );
 
     return false;
 
@@ -103,7 +134,7 @@ class MudStash extends MudGadget {
 
         if ( ! mkdir( $this->dir_path, 0755, true ) ) {
 
-          error_log( 'failed to create directory: ' . $this->dir_path );
+          $this->error_log( 'failed to create directory: ' . $this->dir_path );
 
         }
       }
@@ -116,12 +147,22 @@ class MudStash extends MudGadget {
 
         }
 
-        error_log( 'failed to put contents: ' . $this->dir_path );
+        $this->error_log( 'failed to put contents: ' . $this->file_path );
 
       }
     }
 
+    $this->error_log( 'failed to encode json for: ' . $this->file_path );
+
     return false;
+
+  }
+
+  protected function error_log( $message ) {
+
+    error_log( $message );
+
+    usleep( random_int( 10, 1000 ) );
 
   }
 }
