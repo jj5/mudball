@@ -18,6 +18,8 @@ class MudModuleThing extends MudModuleValue {
 
   protected int $thing_size = 0;
 
+  protected IMudNullObject $null_thing;
+
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-29 jj5 - constructor...
@@ -27,7 +29,7 @@ class MudModuleThing extends MudModuleValue {
 
     parent::__construct( $previous );
 
-    $this->null_thing = $this->new_null_thing();
+    $this->null_thing = new MudNullObject();
 
   }
 

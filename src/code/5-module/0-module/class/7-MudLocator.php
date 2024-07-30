@@ -20,6 +20,8 @@ class MudLocator extends MudService {
 
   private array $module_map = [];
 
+  private array $module_indicator_map = [];
+
   private array $service_map = [];
 
 
@@ -34,6 +36,7 @@ class MudLocator extends MudService {
     if ( $previous ) {
 
       $this->module_map = $previous->module_map;
+      $this->module_indicator_map = $previous->module_indicator_map;
       $this->service_map = $previous->service_map;
 
     }
@@ -78,6 +81,10 @@ class MudLocator extends MudService {
 
   public function get_module( string $module_indicator ) : MudModule {
 
+    $module = $this->module_indicator_map[ $module_indicator ] ?? null;
+
+    if ( $module ) { return $module; }
+
     $module_name = $this->get_module_name( $module_indicator );
 
     $module = $this->module_map[ $module_name ] ?? null;
@@ -89,6 +96,8 @@ class MudLocator extends MudService {
       $this->module_map[ $module_name ] = $module;
 
     }
+
+    $this->module_indicator_map[ $module_indicator ] = $module;
 
     return $module;
 

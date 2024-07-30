@@ -2,6 +2,7 @@
 
 interface IMudNullValue extends
   IMudObject,
+  IMudNullable,
   IMudFalse,
   IMudInteger,
   IMudFloat,
@@ -17,8 +18,7 @@ interface IMudNullValue extends
   IMudDateInterval,
   IMudMoney,
   IMudCurrency,
-  IMudDollars,
-  IMudCents,
+  IMudPrice,
   IMudUrl,
   IMudUrlScheme,
   IMudUrlUser,

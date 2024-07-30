@@ -16,6 +16,8 @@ class MudDateTimeZone extends MudAtom implements IMudDateTimeZone {
 
   public function __construct( DateTimeZone $value ) {
 
+    parent::__construct();
+
     $this->value = $value;
 
   }
@@ -45,7 +47,7 @@ class MudDateTimeZone extends MudAtom implements IMudDateTimeZone {
 
   public function is_zero() : bool { return $this->to_int() === 0; }
 
-  public function is_integer( int $n ) : bool { return $this->to_int() === $n; }
+  //public function is_integer( int $n ) : bool { return $this->to_int() === $n; }
 
   public function is_nan() : bool { return false; }
 

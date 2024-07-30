@@ -9,10 +9,7 @@ class MudTime extends MudDateTime {
 
   public function __construct( DateTimeInterface $value ) {
 
-    static $max_value = new DateTimeImmutable( '23:59:59' );
-    static $min_value = new DateTimeImmutable( '00:00:00' );
-
-    parent::__construct( $value, $max_value, $min_value );
+    parent::__construct( $value );
 
   }
 
@@ -34,5 +31,21 @@ class MudTime extends MudDateTime {
   public function is_zoned() : bool { return false; }
 
   public function get_db_value() : int|float|string|null { return $this->format( 'H:i:s' ); }
+
+  public function get_value_min_datetime() : DateTimeInterface {
+
+    static $min_value = new DateTimeImmutable( '00:00:00' );
+
+    return $min_value;
+
+  }
+
+  public function get_value_max_datetime() : DateTimeInterface {
+
+    static $max_value = new DateTimeImmutable( '23:59:59' );
+
+    return $max_value;
+
+  }
 
 }

@@ -178,18 +178,39 @@ class MudModuleValue extends MudModuleBasic {
 
   }
 
-  public function get_money( mixed $value ) : IMudMoney {
+  public function get_currency( IMudCurrency|string|null $currency ) : IMudCurrency {
 
-    return $this->get_atom( MudMoney::class, $value );
+    if ( ! $currency ) { return $this->get_null(); }
+
+    if ( is_string( $currency ) ) {
+
+      $class = 'MudCurrency_' . $currency;
+
+      return $this->get_atom( $class, $currency );
+
+    }
+
+    return $currency;
 
   }
 
-  public function get_currency( mixed $value ) : IMudCurrency {
+  public function get_money( int $amount, IMudCurrency|string $currency ) : IMudMoney {
 
-    return $this->get_atom( MudCurrency::class, $value );
+    $class = 'MudMoney_' . mud_get_currency( $currency )->get_currency_code();
+
+    return $this->get_atom( $class, $amount );
 
   }
 
+  public function parse_money( string $value ) : IMudMoney {
+
+    return MudMoney::parse( $value );
+
+  }
+
+
+
+/*
   public function get_dollars( mixed $value ) : IMudDollars {
 
     return $this->get_atom( MudDollars::class, $value );
@@ -201,6 +222,7 @@ class MudModuleValue extends MudModuleBasic {
     return $this->get_atom( MudCents::class, $value );
 
   }
+*/
 
   public function get_url( mixed $value ) : IMudUrl {
 

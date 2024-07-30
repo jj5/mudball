@@ -39,11 +39,15 @@ require_once __DIR__ . '/class/9-MudModuleStandard.php';
 
 function mud_is_debug() : bool {
 
+  return DEBUG;
+
   return mud_module_standard()->is_debug();
 
 }
 
 function mud_is_dev() : bool {
+
+  return DEV;
 
   return mud_module_standard()->is_dev();
 
@@ -51,11 +55,15 @@ function mud_is_dev() : bool {
 
 function mud_is_beta() : bool {
 
+  return BETA;
+
   return mud_module_standard()->is_beta();
 
 }
 
 function mud_is_prod() : bool {
+
+  return PROD;
 
   return mud_module_standard()->is_prod();
 

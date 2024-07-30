@@ -22,7 +22,9 @@ class MudDateInterval extends MudAtom implements IMudDateInterval {
 
   public function __construct( DateInterval $value ) {
 
-    assert( ! $value->from_string );
+    parent::__construct();
+
+    //assert( ! $value->from_string );
 
     $this->value = $value;
 
@@ -53,7 +55,7 @@ class MudDateInterval extends MudAtom implements IMudDateInterval {
 
   public function is_zero() : bool { return $this->to_int() === 0; }
 
-  public function is_integer( int $n ) : bool { return $this->to_int() === $n; }
+  //public function is_integer( int $n ) : bool { return $this->to_int() === $n; }
 
   public function is_nan() : bool { return false; }
 
@@ -85,6 +87,12 @@ class MudDateInterval extends MudAtom implements IMudDateInterval {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-30 jj5 - IMudDateInterval interface...
   //
+
+  public function get_interval() : DateInterval {
+
+    return $this->value;
+
+  }
 
   public function get_microseconds(): int {
 

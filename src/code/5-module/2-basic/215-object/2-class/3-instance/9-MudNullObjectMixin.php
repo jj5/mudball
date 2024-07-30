@@ -44,7 +44,7 @@ trait MudNullObjectMixin {
 
   public static function __callStatic( string $name, array $arguments ) { return null; }
 
-  public function __toString() { return ''; }
+  public function __toString() : string { return ''; }
 
 
   //

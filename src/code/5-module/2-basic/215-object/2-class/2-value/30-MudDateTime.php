@@ -17,27 +17,45 @@ abstract class MudDateTime extends MudAtom implements IMudDateTime {
 
   private DateTimeImmutable $value;
 
-  private DateTimeInterface|null $max_value;
-
-  private DateTimeInterface|null $min_value;
-
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-29 jj5 - constructor...
   //
 
-  public function __construct(
-    DateTimeInterface $value,
-    DateTimeInterface|null $max_value = null,
-    DateTimeInterface|null $min_value = null
-  ) {
+  public function __construct( DateTimeInterface|int $value = 0 ) {
+
+    parent::__construct();
+
+    if ( is_int( $value ) ) {
+
+      $value = new DateTimeImmutable( '@' . $value );
+
+    }
 
     $this->value = $value instanceof DateTimeImmutable ?
       $value :
       new DateTimeImmutable( $value->format( 'Y-m-d H:i:s' ), $value->getTimezone() );
 
-    $this->max_value = $max_value;
-    $this->min_value = $min_value;
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-29 jj5 - public static methods...
+  //
+
+  public static function min_value() {
+
+    static $min_value = new DateTimeImmutable( '0001-01-01 00:00:00' );
+
+    return $min_value;
+
+  }
+
+  public static function max_value() {
+
+    static $max_value = new DateTimeImmutable( '9999-12-31 23:59:59' );
+
+    return $max_value;
 
   }
 
@@ -60,13 +78,11 @@ abstract class MudDateTime extends MudAtom implements IMudDateTime {
   // 2024-06-29 jj5 - IMudValue interface...
   //
 
-  public function new_date_time() : DateTime { return new DateTime( $this->get_value(), $this->get_value()->getTimezone() ); }
-
   public function is_valid( mixed $options = null ) : bool {
 
-    if ( $this->min_value && $this->value < $this->min_value ) { return false; }
+    if ( $this->get_value_min_datetime() && $this->value < $this->get_value_min_datetime() ) { return false; }
 
-    if ( $this->max_value && $this->value > $this->max_value ) { return false; }
+    if ( $this->get_value_max_datetime() && $this->value > $this->get_value_max_datetime() ) { return false; }
 
     return true;
 
@@ -75,8 +91,6 @@ abstract class MudDateTime extends MudAtom implements IMudDateTime {
   public function is_empty() : bool { return false; }
 
   public function is_zero() : bool { return $this->to_int() === 0; }
-
-  public function is_integer( int $n ) : bool { return $this->to_int() === $n; }
 
   public function is_nan() : bool { return false; }
 
@@ -88,7 +102,7 @@ abstract class MudDateTime extends MudAtom implements IMudDateTime {
 
   public function to_string() : string { return $this->format( 'Y-m-d H:i:s' ); }
 
-  public function get_value() : mixed { return $this->value; }
+  public function get_value() : mixed { return $this->get_datetime(); }
 
   public function get_db_value() : int|float|string|null { return $this->format( 'Y-m-d H:i:s' ); }
 
@@ -111,7 +125,7 @@ abstract class MudDateTime extends MudAtom implements IMudDateTime {
 
       default :
 
-        return $this->value->format( $spec );
+        return $this->get_datetime()->format( $spec ?? 'Y-m-d H:i:s' );
 
     }
   }
@@ -120,6 +134,30 @@ abstract class MudDateTime extends MudAtom implements IMudDateTime {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-29 jj5 - IMudDateTime interface...
   //
+
+  public function new_date_time() : DateTime {
+    
+    return new DateTime( $this->get_value()->format( 'r' ), $this->get_value()->getTimezone() );
+
+  }
+
+  public function get_datetime() : DateTimeInterface { return $this->value; }
+
+  public function get_value_min_datetime() : DateTimeInterface {
+
+    static $min_value = new DateTimeImmutable( '0001-01-01 00:00:00' );
+
+    return $min_value;
+
+  }
+
+  public function get_value_max_datetime() : DateTimeInterface {
+
+    static $max_value = new DateTimeImmutable( '9999-12-31 23:59:59' );
+
+    return $max_value;
+
+  }
 
   public function get_timestamp() : int { return $this->value->getTimestamp(); }
 

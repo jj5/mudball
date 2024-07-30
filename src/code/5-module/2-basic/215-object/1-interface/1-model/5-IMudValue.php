@@ -6,7 +6,7 @@ interface IMudValue extends IMudHost {
 
   public function is_zero() : bool;
 
-  public function is_integer( int $compare ) : bool;
+  //public function is_integer( int $compare ) : bool;
 
   public function is_nan() : bool;
 

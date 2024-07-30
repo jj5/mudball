@@ -74,12 +74,7 @@ abstract class MudGadget implements JsonSerializable {
 
         $class = get_class( $this );
 
-        var_dump([
-          'oid' => $this->get_oid(),
-          'class' => $class,
-        ]);
-
-        assert( false, "constructor not called for object '$class'." );
+        mud_fail( "constructor not called for object '$class'." );
 
       }
     }

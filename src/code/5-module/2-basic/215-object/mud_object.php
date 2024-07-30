@@ -5,7 +5,7 @@
 // 2024-06-29 jj5 - include dependencies...
 //
 
-require_once __DIR__ . '/../205-general/mud_general.php';
+require_once __DIR__ . '/../210-stash/mud_stash.php';
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,8 @@ require_once __DIR__ . '/1-interface/1-model/4-IMudNode.php';
 require_once __DIR__ . '/1-interface/1-model/5-IMudValue.php';
 require_once __DIR__ . '/1-interface/1-model/6-IMudAtom.php';
 require_once __DIR__ . '/1-interface/1-model/7-IMudComposite.php';
-require_once __DIR__ . '/1-interface/1-model/8-IMudThing.php';
+require_once __DIR__ . '/1-interface/1-model/8-IMudStructuredValue.php';
+require_once __DIR__ . '/1-interface/1-model/9-IMudThing.php';
 
 require_once __DIR__ . '/1-interface/2-value/10-IMudNumber.php';
 require_once __DIR__ . '/1-interface/2-value/11-IMudInteger.php';
@@ -45,10 +46,9 @@ require_once __DIR__ . '/1-interface/2-value/34-IMudDateTimeLocal.php';
 require_once __DIR__ . '/1-interface/2-value/35-IMudDateTimeZoned.php';
 require_once __DIR__ . '/1-interface/2-value/36-IMudDateTimeZone.php';
 require_once __DIR__ . '/1-interface/2-value/37-IMudDateInterval.php';
-require_once __DIR__ . '/1-interface/2-value/40-IMudMoney.php';
-require_once __DIR__ . '/1-interface/2-value/41-IMudCurrency.php';
-require_once __DIR__ . '/1-interface/2-value/42-IMudDollars.php';
-require_once __DIR__ . '/1-interface/2-value/43-IMudCents.php';
+require_once __DIR__ . '/1-interface/2-value/40-IMudCurrency.php';
+require_once __DIR__ . '/1-interface/2-value/41-IMudMoney.php';
+require_once __DIR__ . '/1-interface/2-value/42-IMudPrice.php';
 require_once __DIR__ . '/1-interface/2-value/50-IMudUrl.php';
 require_once __DIR__ . '/1-interface/2-value/51-IMudUrlScheme.php';
 require_once __DIR__ . '/1-interface/2-value/52-IMudUrlUser.php';
@@ -77,7 +77,8 @@ require_once __DIR__ . '/2-class/1-base/4-MudNode.php';
 require_once __DIR__ . '/2-class/1-base/5-MudValue.php';
 require_once __DIR__ . '/2-class/1-base/6-MudAtom.php';
 require_once __DIR__ . '/2-class/1-base/7-MudComposite.php';
-require_once __DIR__ . '/2-class/1-base/8-MudThing.php';
+require_once __DIR__ . '/2-class/1-base/8-MudStructuredValue.php';
+require_once __DIR__ . '/2-class/1-base/9-MudThing.php';
 
 require_once __DIR__ . '/2-class/2-value/10-MudNumber.php';
 require_once __DIR__ . '/2-class/2-value/11-MudInteger.php';
@@ -94,10 +95,12 @@ require_once __DIR__ . '/2-class/2-value/34-MudDateTimeLocal.php';
 require_once __DIR__ . '/2-class/2-value/35-MudDateTimeZoned.php';
 require_once __DIR__ . '/2-class/2-value/36-MudDateTimeZone.php';
 require_once __DIR__ . '/2-class/2-value/37-MudDateInterval.php';
-require_once __DIR__ . '/2-class/2-value/40-MudMoney.php';
-require_once __DIR__ . '/2-class/2-value/41-MudCurrency.php';
-require_once __DIR__ . '/2-class/2-value/42-MudDollars.php';
-require_once __DIR__ . '/2-class/2-value/43-MudCents.php';
+require_once __DIR__ . '/2-class/2-value/40-MudCurrency.php';
+require_once __DIR__ . '/2-class/2-value/41-MudMoney.php';
+
+require_once __DIR__ . '/../../../../gen/money/money.php';
+
+require_once __DIR__ . '/2-class/2-value/42-MudPrice.php';
 require_once __DIR__ . '/2-class/2-value/50-MudUrl.php';
 require_once __DIR__ . '/2-class/2-value/51-MudUrlScheme.php';
 require_once __DIR__ . '/2-class/2-value/52-MudUrlUser.php';
@@ -113,6 +116,8 @@ require_once __DIR__ . '/2-class/3-instance/1-MudTrue.php';
 require_once __DIR__ . '/2-class/3-instance/2-MudFalse.php';
 require_once __DIR__ . '/2-class/3-instance/3-MudPositive.php';
 require_once __DIR__ . '/2-class/3-instance/4-MudNegative.php';
+require_once __DIR__ . '/2-class/3-instance/7-MudNullValue.php';
+require_once __DIR__ . '/2-class/3-instance/8-MudNullThing.php';
 require_once __DIR__ . '/2-class/3-instance/9-MudNullObjectMixin.php';
 require_once __DIR__ . '/2-class/3-instance/9-MudNullObject.php';
 
@@ -131,7 +136,7 @@ require_once __DIR__ . '/2-class/5-module/4-MudModuleObject.php';
 // 2024-06-29 jj5 - functional interface...
 //
 
-function mud_get_null_object() : IMudNullObject {
+function mud_null_object() : IMudNullObject {
 
   return mud_module_object()->get_null();
 
@@ -275,18 +280,25 @@ function mud_get_date_interval( mixed $value ) : IMudDateInterval {
 
 }
 
-function mud_get_money( mixed $value ) : IMudMoney {
+function mud_get_currency( IMudCurrency|string|null $currency ) : IMudCurrency {
 
-  return mud_module_object()->get_money( $value );
-
-}
-
-function mud_get_currency( mixed $value ) : IMudCurrency {
-
-  return mud_module_object()->get_currency( $value );
+  return mud_module_object()->get_currency( $currency );
 
 }
 
+function mud_get_money( int $amount, IMudCurrency|string $currency ) : IMudMoney {
+
+  return mud_module_object()->get_money( $amount, $currency );
+
+}
+
+function mud_parse_money( string $string ) : IMudMoney {
+
+  return mud_module_object()->parse_money( $string );
+
+}
+
+/*
 function mud_get_dollars( mixed $value ) : IMudDollars {
 
   return mud_module_object()->get_dollars( $value );
@@ -298,6 +310,7 @@ function mud_get_cents( mixed $value ) : IMudCents {
   return mud_module_object()->get_cents( $value );
 
 }
+*/
 
 function mud_get_url( mixed $value ) : IMudUrl {
 
