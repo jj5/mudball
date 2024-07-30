@@ -1,5 +1,9 @@
 <?php
 
+define( 'MUD_STASH_RETRY', 10 );
+define( 'MUD_STASH_USLEEP_MIN', 10 );
+define( 'MUD_STASH_USLEEP_MAX', 100 );
+
 class MudStash extends MudGadget {
 
 
@@ -78,7 +82,7 @@ class MudStash extends MudGadget {
   
   protected function do_read_data() : bool {
 
-    for ( $try = 1; $try < 10; $try++ ) {
+    for ( $try = 1; $try < MUD_STASH_RETRY; $try++ ) {
 
       if ( ! file_exists( $this->file_path ) ) {
 
@@ -128,7 +132,7 @@ class MudStash extends MudGadget {
 
     if ( is_string( $json ) && ! json_last_error() ) {
 
-      for ( $try = 1; $try < 10; $try++ ) {
+      for ( $try = 1; $try < MUD_STASH_RETRY; $try++ ) {
 
         if ( is_dir( $this->dir_path ) ) { break; }
 
@@ -139,7 +143,7 @@ class MudStash extends MudGadget {
         }
       }
 
-      for ( $try = 1; $try < 10; $try++ ) {
+      for ( $try = 1; $try < MUD_STASH_RETRY; $try++ ) {
 
         if ( file_put_contents( $this->file_path, $json ) ) {
 
@@ -162,7 +166,7 @@ class MudStash extends MudGadget {
 
     error_log( $message );
 
-    usleep( random_int( 10, 100 ) );
+    usleep( random_int( MUD_STASH_USLEEP_MIN, MUD_STASH_USLEEP_MAX ) );
 
   }
 }
