@@ -162,7 +162,7 @@ class MudStash extends MudGadget {
 
     error_log( $message );
 
-    usleep( random_int( 10, 1000 ) );
+    usleep( random_int( 10, 100 ) );
 
   }
 }
