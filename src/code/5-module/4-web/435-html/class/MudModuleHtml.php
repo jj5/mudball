@@ -2489,6 +2489,12 @@ class MudModuleHtml extends MudModuleWeb {
 
         }
 
+        if ( ! isset( $attrs[ 'loading' ] ) ) {
+
+          $attrs[ 'loading' ] = 'lazy';
+
+        }
+
         break;
 
       default :

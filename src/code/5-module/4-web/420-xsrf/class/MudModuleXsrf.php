@@ -15,6 +15,17 @@ class MudModuleXsrf extends MudModuleWeb {
   protected $token = null;
 
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-07-30 jj5 - constructor...
+  //
+
+  public function __construct( MudModuleXsrf|null $previous = null) {
+
+    parent::__construct( $previous );
+
+  }
+
+
   ///////////////////////////////////////////////////////////////////////////////////////////////
   // 2022-03-06 jj5 - public methods...
   //

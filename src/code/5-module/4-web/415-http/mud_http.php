@@ -37,6 +37,11 @@ function mud_get_http_verb() {
 
 }
 
+function mud_http_cache_forever() {
+
+  return mud_module_http()->cache_forever();
+
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // 2024-02-07 jj5 - service locator...
