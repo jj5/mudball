@@ -1,6 +1,6 @@
 <?php
 
-class MudNode extends MudHost implements IMudNode {
+abstract class MudNode extends MudHost implements IMudNode {
 
   private IMudNode|null $parent = null;
 

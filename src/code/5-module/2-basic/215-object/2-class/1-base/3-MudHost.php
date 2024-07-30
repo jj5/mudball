@@ -1,6 +1,6 @@
 <?php
 
-class MudHost extends MudNullable implements IMudHost {
+abstract class MudHost extends MudNullable implements IMudHost {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,22 +21,6 @@ class MudHost extends MudNullable implements IMudHost {
   // 2024-07-30 jj5 - public instance methods...
   //
 
-  public function get_child_list() : array { return $this->child_list; }
+  public function get_child_list() : array { return []; }
 
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-07-30 jj5 - protected instance methods...
-  //
-
-  protected function set_child_list( $child_list ) {
-
-    foreach ( $child_list as $child ) {
-
-      $child->set_parent( $this );
-
-    }
-
-    $this->child_list = $child_list;
-
-  }
 }
