@@ -54,6 +54,11 @@ class MudStash extends MudGadget {
       $this->data = json_decode( $json, true );
 
     }
+    else {
+
+      $this->data = null;
+
+    }
   }
 
   public function set_data( mixed $data ) : bool {
