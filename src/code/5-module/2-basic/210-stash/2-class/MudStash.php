@@ -22,6 +22,8 @@ class MudStash extends MudGadget {
 
   public function __construct( string $name ) {
 
+    parent::__construct();
+
     $this->name = $name;
 
     $this->dir_path = '/var/state/' . APP_CODE;

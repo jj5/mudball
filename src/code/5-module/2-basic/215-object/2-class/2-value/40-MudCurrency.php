@@ -58,7 +58,9 @@ abstract class MudCurrency extends MudString implements IMudCurrency {
 
     if ( $rates ) { return $rates; }
 
-    $url = "https://api.exchangerate-api.com/v4/latest/$currency";
+    $url = "https://api.exchangerate-api.com/v6/latest/$currency";
+
+    error_log( "Fetching currency rates from $url" );
 
     $json = file_get_contents( $url );
 
