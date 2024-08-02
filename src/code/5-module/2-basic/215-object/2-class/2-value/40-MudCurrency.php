@@ -15,6 +15,25 @@ abstract class MudCurrency extends MudString implements IMudCurrency {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-08-03 jj5 - public static methods...
+  //
+
+  public static function get_default_currency_code() {
+
+    static $value = null;
+    
+    if ( $value === null ) {
+
+      $value = defined( 'APP_DEFAULT_CURRENCY') ? APP_DEFAULT_CURRENCY : MUD_DEFAULT_CURRENCY;
+
+    }
+
+    return $value;
+
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-07-30 jj5 - public instance methods...
   //
 
@@ -34,7 +53,7 @@ abstract class MudCurrency extends MudString implements IMudCurrency {
 
     if ( $currency === null ) {
 
-      $currency = mud_get_currency( $_GET[ 'currency' ] ?? MUD_VALUE_DEFAULT_CURRENCY );
+      $currency = mud_get_currency( $_GET[ 'currency' ] ?? self::get_default_currency_code() );
 
     }
 

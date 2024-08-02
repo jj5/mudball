@@ -1,7 +1,5 @@
 <?php
 
-define( 'MUD_VALUE_DEFAULT_CURRENCY', 'AUD' );
-
 abstract class MudMoney extends MudInteger implements IMudMoney {
 
 
@@ -20,6 +18,12 @@ abstract class MudMoney extends MudInteger implements IMudMoney {
   // 2024-07-30 jj5 - public static methods...
   //
 
+  public static function get_default_currency_code() {
+
+    return MudCurrency::get_default_currency_code();
+
+  }
+
   public static function get_formatter() {
 
     static $formatter = new NumberFormatter( 'en_US', NumberFormatter::CURRENCY );
@@ -29,6 +33,14 @@ abstract class MudMoney extends MudInteger implements IMudMoney {
   }
 
   public static function parse( string $input ) : IMudMoney {
+
+    $input = trim( $input );
+
+    if ( $input === '' ) {
+
+      return mud_get_money( 0, mud_get_currency( self::get_default_currency_code() ) );
+
+    }
 
     $formatter = self::get_formatter();
 

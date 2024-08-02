@@ -1919,3 +1919,10 @@ define( 'MUD_PROBLEM_INVALID_MATCH',    'is in an invalid format' );
 
 define( 'MUD_WARNING_DEFAULT_USED',     'default value used'      );
 */
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 2024-08-03 jj5 - some constants for the currency facility...
+//
+
+define( 'MUD_DEFAULT_CURRENCY', 'AUD' );
