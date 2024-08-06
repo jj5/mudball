@@ -2384,6 +2384,8 @@ class MudModuleHtml extends MudModuleWeb {
 
   }
 
+  public function has_id( $id ) { return array_key_exists( $id, $this->html_state[ 'id_map' ] ); }
+
   protected function fix_attrs( string $tag, array &$attrs ) {
 
     static $auto_name = [ 'input', 'select', 'textarea', ];

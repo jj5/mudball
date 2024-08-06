@@ -316,6 +316,8 @@ function tag_shut( string $tag, array $attrs = [] ) : MudModuleHtml {
 
 }
 
+function mud_html_has_id( $id ) { return mud_module_html()->has_id( $id ); }
+
 // 2019-09-13 jj5 - I'm not happy with the unprefixed names get_attr() and
 // attrs_to_html() and as these functions probably don't need to be available
 // in the global namespace I have removed them for now...
