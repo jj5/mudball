@@ -129,7 +129,7 @@ class MudModuleStats extends MudModuleBasic {
       }
       else {
 
-        mud_fail( MUD_ERR_STATS_UNKNOWN_TYPE );
+        mud_fail( MUD_ERR_STATS_UNKNOWN_TYPE, [ 'input' => $input ] );
 
       }
     }
