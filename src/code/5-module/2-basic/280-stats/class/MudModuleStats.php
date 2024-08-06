@@ -74,7 +74,7 @@ class MudModuleStats extends MudModuleBasic {
       // 2022-01-29 jj5 - that will do
 
     }
-    else if ( is_object( $input ) && is_a( $input, 'Traversable' ) ) {
+    elseif ( is_object( $input ) && is_a( $input, 'Traversable' ) ) {
 
       // 2022-01-29 jj5 - that will do
 
@@ -87,32 +87,39 @@ class MudModuleStats extends MudModuleBasic {
 
     if ( $type === null ) {
 
-      if ( $this->is_list_of_int( $input ) ) {
+      if ( $input === [] ) {
+
+        // 2024-08-06 jj5 - if it's empty it doesn't matter what it is...
 
         $type = MUD_STATS_TYPE_INT;
 
       }
-      else if ( $this->is_list_of_float( $input ) ) {
+      elseif ( $this->is_list_of_int( $input ) ) {
+
+        $type = MUD_STATS_TYPE_INT;
+
+      }
+      elseif ( $this->is_list_of_float( $input ) ) {
 
         $type = MUD_STATS_TYPE_FLOAT;
 
       }
-      else if ( $this->is_list_of_ascii( $input ) ) {
+      elseif ( $this->is_list_of_ascii( $input ) ) {
 
         $type = MUD_STATS_TYPE_ASCII;
 
       }
-      else if ( $this->is_list_of_utf8( $input ) ) {
+      elseif ( $this->is_list_of_utf8( $input ) ) {
 
         $type = MUD_STATS_TYPE_UTF8;
 
       }
-      else if ( $this->is_list_of_object( $input ) ) {
+      elseif ( $this->is_list_of_object( $input ) ) {
 
         $type = MUD_STATS_TYPE_OBJECT;
 
       }
-      else if ( $this->is_list_of_null( $input ) ) {
+      elseif ( $this->is_list_of_null( $input ) ) {
 
         // 2022-01-29 jj5 - if all the value are null the type can be pretty much anything,
         // we say float because there may be NaN values which are technically floats.
@@ -265,7 +272,7 @@ class MudModuleStats extends MudModuleBasic {
             $stats[ MUD_STATS_MODES ][] = $x;
 
           }
-          else if( $tally > $stats[ MUD_STATS_MODE_FREQUENCY ] ) {
+          elseif ( $tally > $stats[ MUD_STATS_MODE_FREQUENCY ] ) {
 
             $stats[ MUD_STATS_MODES ] = [ $x ];
             $stats[ MUD_STATS_MODE_FREQUENCY ] = $tally;
