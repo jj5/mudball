@@ -16,12 +16,11 @@ The project has a home page, here:
 
 = Adding mudball to your project =
 
-```bash
-cd /path/to/your/project
-mkdir ext
-git submodule add git@github.com:jj5/mudball.git ext/mudball
-git submodule init
-git submodule update
-git add .gitmodules ext
-git commit -m "Add mudball"
-```
+  ```bash
+  cd /path/to/your/project
+  mkdir ext
+  git submodule add git@github.com:jj5/mudball.git ext/mudball
+  git submodule init
+  git submodule update
+  git add .gitmodules ext
+  git commit -m "Add mudball"
