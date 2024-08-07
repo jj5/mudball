@@ -58,7 +58,7 @@ class MudModuleIo extends MudModuleCritical {
 
   }
 
-  public function flush( &$length = null, bool $return = false ) {
+  public function flush( &$length, bool $return ) {
 
     $length = ob_get_length();
 
@@ -86,7 +86,7 @@ class MudModuleIo extends MudModuleCritical {
 
   }
 
-  public function clear( &$length = null, bool $return = false ) {
+  public function clear( &$length, bool $return ) {
 
     $length = ob_get_length();
 
@@ -100,7 +100,7 @@ class MudModuleIo extends MudModuleCritical {
 
   }
 
-  public function clear_all( &$length = null, bool $return = false ) {
+  public function clear_all( &$length, bool $return ) {
 
     $length = 0;
 
@@ -141,7 +141,7 @@ class MudModuleIo extends MudModuleCritical {
   // 2021-03-18 jj5 - public input functions...
   //
 
-  public function read_acord( $input, $default = '' ) {
+  public function read_acord( $input, $default ) {
 
     $value = $this->read_ascii( $input, null );
 
@@ -174,17 +174,14 @@ class MudModuleIo extends MudModuleCritical {
   public function get_total_stdout_bytes() { return $this->stdout_sent; }
   public function get_total_stderr_bytes() { return $this->stderr_sent; }
 
-  public function printline( $line, &$bytes_written = null ) : string {
-
-    $line = strval( $line );
+  public function printline( string $line, &$bytes_written ) : void {
 
     return mud_stdout( "$line\n", $flush = true, $bytes_written );
 
   }
 
-  public function stdout( $output, bool $flush = false, &$bytes_written = 0 ) : string {
+  public function stdout( string $output, bool $flush, &$bytes_written ) : void {
 
-    $output = strval( $output );
     $strlen = strlen( $output );
 
     $this->stdout_sent += $strlen;
@@ -194,13 +191,10 @@ class MudModuleIo extends MudModuleCritical {
 
     if ( $flush ) { flush(); }
 
-    return $output;
-
   }
 
-  public function stderr( $output, bool $flush = false, &$bytes_written = 0 ) : string {
+  public function stderr( string $output, bool $flush, &$bytes_written ) : void {
 
-    $output = strval( $output );
     $strlen = strlen( $output );
 
     $this->stderr_sent += $strlen;
@@ -222,9 +216,6 @@ class MudModuleIo extends MudModuleCritical {
       error_log( $output );
 
     }
-
-    return $output;
-
   }
 
 
@@ -232,7 +223,7 @@ class MudModuleIo extends MudModuleCritical {
   // 2021-03-26 jj5 - protected input functions...
   //
 
-  public function read_ascii( $value, $default = '' ) {
+  public function read_ascii( $value, $default ) {
 
     $value = $this->read_string( $value, null );
 
@@ -242,7 +233,7 @@ class MudModuleIo extends MudModuleCritical {
 
   }
 
-  public function read_string( $value, $default = '' ) {
+  public function read_string( $value, $default ) {
 
     $value = $this->read_text( $value, null );
 
@@ -252,7 +243,7 @@ class MudModuleIo extends MudModuleCritical {
 
   }
 
-  public function read_text( $value, $default = '' ) {
+  public function read_text( $value, $default ) {
 
     if ( is_null( $value ) ) { return $default; }
 
