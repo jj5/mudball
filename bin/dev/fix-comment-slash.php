@@ -23,11 +23,7 @@ function main( $argv ) {
 
     $file_path = $matches[ 0 ];
 
-    if ( $file_path !== 'ext/mudball/bin/dev/fix-comment-slash.php' ) { continue; }
-
     process_file( $file_path );
-
-    return;
 
   }
 }
@@ -58,9 +54,9 @@ function process_file( string $file_path ) {
 
   $output = implode( '', $result );
 
-  echo $output;
+  //echo $output;
 
-  file_put_contents( $file_path, implode( '', $result ) );
+  file_put_contents( $file_path, $output );
 
 }
 
