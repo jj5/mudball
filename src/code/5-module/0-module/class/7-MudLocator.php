@@ -79,7 +79,7 @@ class MudLocator extends MudService {
 
   }
 
-  public function get_module( string $module_indicator ) : MudModule {
+  public function get_module( string $module_indicator ) {
 
     $module = $this->module_indicator_map[ $module_indicator ] ?? null;
 

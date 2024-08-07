@@ -5,24 +5,24 @@
 // 2021-02-27 jj5 - include dependencies...
 //
 
-require_once __DIR__ . '/../120-debug/mud_debug.php';
+require_once __DIR__ . '/../125-input/mud_input.php';
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-// 2022-02-23 jj5 - include components...
+// 2024-08-07 jj5 - include components...
 //
 
-require_once __DIR__ . '/class/MudModuleIo.php';
+require_once __DIR__ . '/class/MudModuleOutput.php';
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 2021-02-24 JJ5 - service locator...
+// 2024-08-07 jj5 - service locator...
 //
 //
 
-function mud_module_io() : MudModuleIo {
+function mud_module_output() : MudModuleOutput {
 
-  return mud_locator()->get_module( MudModuleIo::class );
+  return mud_locator()->get_module( MudModuleOutput::class );
 
 }
 
@@ -32,13 +32,13 @@ function mud_module_io() : MudModuleIo {
 //
 //
 
-if ( defined( 'APP_FAST_IO' ) && APP_FAST_IO ) {
+if ( defined( 'APP_FAST_OUTPUT' ) && APP_FAST_OUTPUT ) {
 
-  require_once __DIR__ . '/api/fast-io.php';
+  require_once __DIR__ . '/api/fast-output.php';
 
 }
 else {
 
-  require_once __DIR__ . '/api/slow-io.php';
+  require_once __DIR__ . '/api/slow-output.php';
 
 }
