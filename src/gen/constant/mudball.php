@@ -1432,3 +1432,4 @@ define( 'MUD_STASH_SLEEP_MIN', 10 );
 define( 'MUD_STASH_SLEEP_MAX', 100 );
 define( 'MUD_STASH_USLEEP_MIN', 10 );
 define( 'MUD_STASH_USLEEP_MAX', 100 );
+define( 'MUD_DEFAULT_CURRENCY', "AUD" );
