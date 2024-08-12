@@ -129,11 +129,14 @@ class MudModuleDefine extends MudModuleBasic {
 
     }
 
+    // 2024-08-12 jj5 - OLD: we don't do this any more because we're on git now...
+    /*
     if ( defined( 'DEV' ) && DEV && $vcs_revision ) {
 
       $version .= "-$vcs_revision";
 
     }
+    */
 
     if ( $build !== 'prod' ) {
 
@@ -158,11 +161,23 @@ class MudModuleDefine extends MudModuleBasic {
 
     $this->define_default( $const_prefix, $slug );
 
+    if ( $const_prefix === 'MUDBALL' ) {
+
+      return $this->define_list( $const_prefix, 'MUD' );
+
+    }
+
     return $this;
 
   }
 
   public function define_app( string $const_prefix ) {
+
+    return $this->define_list( $const_prefix, 'APP' );
+
+  }
+
+  protected function define_list( $const_prefix, $short_prefix ) {
 
     static $const_list = [
       'NAME', 'CODE', 'PATH', 'CONFIG_FILE', 'CONFIG_PATH',
@@ -180,18 +195,20 @@ class MudModuleDefine extends MudModuleBasic {
 
     }
 
-    $component = constant( $const_prefix . '_CODE' );
-    $path = constant( $const_prefix . '_PATH' );
-    $version_base = constant( $const_prefix . '_VERSION_BASE' );
+    if ( $const_prefix === $short_prefix ) {
+
+      mud_fail( MUD_ERR_DEFINE_APP_CONSTANTS_CANNOT_BE_REDEFINED );
+
+    }
 
     foreach ( $const_list as $const ) {
 
       $real_const = $const_prefix . '_' . $const;
-      $app_const = 'APP_' . $const;
+      $short_const = $short_prefix . '_' . $const;
 
-      if ( defined( $app_const ) ) {
+      if ( defined( $short_const ) ) {
 
-        mud_fail( MUD_ERR_DEFINE_APP_CONSTANT_IS_ALREADY_DEFINED, [ 'const' => $app_const ] );
+        mud_fail( MUD_ERR_DEFINE_APP_CONSTANT_IS_ALREADY_DEFINED, [ 'const' => $short_const ] );
 
       }
 
@@ -201,7 +218,7 @@ class MudModuleDefine extends MudModuleBasic {
 
       }
 
-      define( $app_const, constant( $real_const ) );
+      define( $short_const, constant( $real_const ) );
 
     }
 

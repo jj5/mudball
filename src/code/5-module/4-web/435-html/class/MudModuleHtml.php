@@ -1617,6 +1617,73 @@ class MudModuleHtml extends MudModuleWeb {
 
   }
 
+  private $opt_space = null;
+  private $opt_break = null;
+
+  protected function get_options( array $attrs, &$opt_space, &$opt_break ) {
+
+    if ( $this->opt_space === null ) {
+    
+      $pretty = $_GET[ 'pretty' ] ?? false;
+
+      if ( $pretty !== false ) {
+
+        if ( $pretty === '0' ) {
+
+          $opt_space = false;
+          $opt_break = true;
+
+        }
+        else {
+
+          $opt_space = true;
+          $opt_break = false;
+
+        }
+      }
+      else {
+
+        $opt_space = $this->get_attr( $attrs, MUD_HTML_OPT_SPACE, $this->get_opt_space( DEBUG ) );
+        $opt_break = $this->get_attr( $attrs, MUD_HTML_OPT_BREAK, $this->get_opt_break( ! DEBUG ) );
+
+      }
+
+      $this->opt_space = $opt_space;
+      $this->opt_break = $opt_break;
+
+    }
+    else {
+
+      $opt_space = $this->opt_space;
+      $opt_break = $this->opt_break;
+
+    }
+  }
+
+  private $is_pretty = null;
+
+  protected function is_pretty() {
+
+    if ( $this->is_pretty === null ) {
+
+      $pretty = $_GET[ 'pretty' ] ?? false;
+
+      if ( $pretty === '0' ) {
+
+        $this->is_pretty = false;
+
+      }
+      else {
+
+        $this->is_pretty = true;
+
+      }
+    }
+
+    return $this->is_pretty;
+
+  }
+
   // 2017-06-01 jj5 - TODO: think about validating whether elements are allowed
   // as sub-elements...
   public function tag_open( string $tag, array $attrs = [], $bare = false ) : MudModuleHtml {
@@ -1644,8 +1711,7 @@ class MudModuleHtml extends MudModuleWeb {
 
     // 2024-07-04 jj5 - NOTE: we need to read these before we call fix_attrs() because fix_attrs() will remove them...
     //
-    $opt_space = $this->get_attr( $attrs, MUD_HTML_OPT_SPACE, $this->get_opt_space( DEBUG ) );
-    $opt_break = $this->get_attr( $attrs, MUD_HTML_OPT_BREAK, $this->get_opt_break( ! DEBUG ) );
+    $this->get_options( $attrs, $opt_space, $opt_break );
 
     $this->fix_attrs( $tag, $attrs );
 
@@ -1934,6 +2000,20 @@ class MudModuleHtml extends MudModuleWeb {
   // indentation for nicer looking output...
   //
   public function out_code( $code ) : MudModuleHtml {
+
+    if ( ! $this->is_pretty() ) {
+
+      if ( strlen( $code ) === 0 ) { return $this; }
+
+      if ( $code[ 0 ] !== "\n" ) {
+
+        return $this->out_html( "\n$code" );
+
+      }
+
+      return $this->out_html( $code );
+
+    }
 
     $lines = explode( "\n", $code );
 
@@ -2998,6 +3078,8 @@ class MudModuleHtml extends MudModuleWeb {
     static $note = null;
 
     if ( ! DEBUG ) { return; }
+
+    if ( ! $this->is_pretty() ) { return; }
 
     $backtrace = debug_backtrace();
 
