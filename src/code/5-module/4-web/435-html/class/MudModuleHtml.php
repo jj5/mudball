@@ -1624,22 +1624,13 @@ class MudModuleHtml extends MudModuleWeb {
 
     if ( $this->opt_space === null ) {
     
-      $pretty = $_GET[ 'pretty' ] ?? false;
+      $cache = $_COOKIE[ 'cache' ] ?? false;
 
-      if ( $pretty !== false ) {
+      if ( $cache !== false ) {
 
-        if ( $pretty === '0' ) {
+        $opt_space = false;
+        $opt_break = true;
 
-          $opt_space = false;
-          $opt_break = true;
-
-        }
-        else {
-
-          $opt_space = true;
-          $opt_break = false;
-
-        }
       }
       else {
 
@@ -1660,27 +1651,9 @@ class MudModuleHtml extends MudModuleWeb {
     }
   }
 
-  private $is_pretty = null;
+  protected function is_cache_request() {
 
-  protected function is_pretty() {
-
-    if ( $this->is_pretty === null ) {
-
-      $pretty = $_GET[ 'pretty' ] ?? false;
-
-      if ( $pretty === '0' ) {
-
-        $this->is_pretty = false;
-
-      }
-      else {
-
-        $this->is_pretty = true;
-
-      }
-    }
-
-    return $this->is_pretty;
+    return is_cache_request();
 
   }
 
@@ -2001,7 +1974,7 @@ class MudModuleHtml extends MudModuleWeb {
   //
   public function out_code( $code ) : MudModuleHtml {
 
-    if ( ! $this->is_pretty() ) {
+    if ( ! $this->is_cache_request() ) {
 
       if ( strlen( $code ) === 0 ) { return $this; }
 
@@ -3079,7 +3052,7 @@ class MudModuleHtml extends MudModuleWeb {
 
     if ( ! DEBUG ) { return; }
 
-    if ( ! $this->is_pretty() ) { return; }
+    if ( ! $this->is_cache_request() ) { return; }
 
     $backtrace = debug_backtrace();
 
