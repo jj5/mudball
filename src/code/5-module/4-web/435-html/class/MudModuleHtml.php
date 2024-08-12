@@ -1974,7 +1974,7 @@ class MudModuleHtml extends MudModuleWeb {
   //
   public function out_code( $code ) : MudModuleHtml {
 
-    if ( ! $this->is_cache_request() ) {
+    if ( $this->is_cache_request() ) {
 
       if ( strlen( $code ) === 0 ) { return $this; }
 
