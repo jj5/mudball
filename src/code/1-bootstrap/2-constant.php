@@ -35,8 +35,8 @@ define( 'MUDBALL_CONFIG_PATH', MUDBALL_PATH . '/' . MUDBALL_CONFIG_FILE );
   // 2024-07-07 jj5 - NOTE: we load the application config file here, if it exists. This is so that we can get access to
   // DEBUG and DEV constants while we are loading...
 
-  $app_base = realpath( __DIR__ . '/../../../../../' );
-  $app_config = $app_base . '/config.php';
+  $app_dir = realpath( __DIR__ . '/../../../../../' );
+  $app_config = $app_dir . '/config.php';
 
   if ( file_exists( $app_config ) ) { require_once $app_config; }
 
