@@ -1623,7 +1623,7 @@ class MudModuleHtml extends MudModuleWeb {
   protected function get_options( array $attrs, &$opt_space, &$opt_break ) {
 
     if ( $this->opt_space === null ) {
-    
+
       $cache = $_COOKIE[ 'cache' ] ?? false;
 
       if ( $cache !== false ) {
@@ -1690,6 +1690,22 @@ class MudModuleHtml extends MudModuleWeb {
 
     array_push( $this->html_state[ 'stack-tags' ], $tag );
     array_push( $this->html_state[ 'stack-attrs' ], $attrs );
+
+    if ( DEBUG ) {
+
+      $href = $attrs[ 'href' ] ?? null;
+
+      if ( $href ) {
+
+        $href_parts = explode( '#', $href );
+
+        if ( count( $href_parts ) > 2 ) {
+
+          mud_fail( 'duplicate hash in href.', [ 'href' => $href ] );
+
+        }
+      }
+    }
 
     $this->debug_note();
 
@@ -2286,9 +2302,9 @@ class MudModuleHtml extends MudModuleWeb {
         if ( ! isset( $attrs[ 'id' ] ) ) {
 
           if ( $tag === 'h1' ) {
-            
+
             $attrs[ 'id' ] = 'heading';
-            
+
           }
           else {
 
@@ -2520,7 +2536,7 @@ class MudModuleHtml extends MudModuleWeb {
       //error_log( "tag: $tag; key: $key; type: " . gettype( $val ) );
 
       $attrs[ $key ] = strval( $val );
-    
+
     }
 
     switch ( $tag ) {
@@ -2553,7 +2569,7 @@ class MudModuleHtml extends MudModuleWeb {
         break;
 
       default :
-      
+
     }
   }
 
