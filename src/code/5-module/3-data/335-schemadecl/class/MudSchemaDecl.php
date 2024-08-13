@@ -113,7 +113,7 @@ class MudSchemaDecl extends MudSchemaDeclBase {
 
     // 2021-10-18 jj5 - if it's not a string then it's an array of column names for an index...
 
-    return 'idx_' . md5( mud_json_compact( $spec ) );
+    return 'idx_' . mud_hash_hex( mud_json_compact( $spec ) );
 
   }
 

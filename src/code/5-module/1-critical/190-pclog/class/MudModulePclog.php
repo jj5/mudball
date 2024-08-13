@@ -42,7 +42,7 @@ class MudModulePclog extends MudModuleCritical {
     parent::__construct( $previous );
 
   }
-  
+
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2021-02-24 jj5 - public static functions...
@@ -321,7 +321,7 @@ class MudModulePclog extends MudModuleCritical {
     if ( ! defined( 'DEV' ) ) { define( 'DEV', false ); }
 
     // 2017-06-06 jj5 - we can't hash any more, so force daily refresh...
-    //$hash = md5( __DIR__ . '/browser.js' );
+    //$hash = mud_hash_hex( __DIR__ . '/browser.js' );
     $date = date( 'Y-m-d' );
 
     $app_name = $this->read_const( 'APP_NAME' );
@@ -1426,7 +1426,7 @@ $trace
           if ( function_exists( 'render_500' ) ) {
 
             render_500( $message, $form, $issue, $exit, $ex );
-            
+
           }
           else {
 

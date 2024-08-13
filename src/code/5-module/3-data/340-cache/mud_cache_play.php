@@ -57,14 +57,14 @@ function run_dal( $thread ) {
 
   for ( $n = 1; $n <= TEST_CACHE_SPIN; $n++ ) {
 
-    $container = 'test-container-' . substr( md5( microtime() ), -1 );
+    $container = 'test-container-' . substr( mud_hash_hex( microtime() ), -1 );
 
-    $id =  substr( md5( microtime() ), -5 );
+    $id =  substr( mud_hash_hex( microtime() ), -5 );
 
     // 2021-04-11 jj5 - NOTE: the value must always be the same for any given ID, so we base
     // our example values on the hash of the ID...
     //
-    $input = md5( $id );
+    $input = mud_hash_hex( $id );
 
     if ( $cache->read( $container, $id, $cache_key, $result ) ) {
 

@@ -97,9 +97,21 @@ function mud_hash_bin( string $input, string $salt = '' ) : string {
 
 }
 
+function mud_hash( string $input, bool $raw_output = false, string $salt = '' ) : string {
+
+  return mud_module_string()->hash( $input, $raw_output, $salt );
+
+}
+
 function mud_hash_hex( string $input, string $salt = '' ) : string {
 
   return mud_module_string()->hash_hex( $input, $salt );
+
+}
+
+function mud_hash_file( string $path, bool $raw_output = false ) : string {
+
+  return mud_module_string()->hash_file( $path, $raw_output );
 
 }
 
@@ -178,13 +190,13 @@ function mud_unicode_normalize( $data ) {
 function mud_quote( $string ) {
 
   return mud_module_string()->quote( $string );
-  
+
 }
 
 function mud_escape( $string ) {
 
   return mud_module_string()->escape( $string );
-  
+
 }
 
 

@@ -70,7 +70,7 @@ abstract class MudModuleWebLog extends MudModuleCritical {
 
     $json = bom_json_encode( $state );
 
-    $hash = md5( $json );
+    $hash = mud_hash_hex( $json );
 
     $log_dir = $this->get_http_log_dir( $hash );
 

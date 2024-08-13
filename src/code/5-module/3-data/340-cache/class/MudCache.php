@@ -357,7 +357,7 @@ class MudCache extends MudGadget {
 
     if ( $result === null ) {
 
-      $result = $this->table_map[ $container ] = 't_' . md5( $container );
+      $result = $this->table_map[ $container ] = 't_' . mud_hash( $container );
 
     }
 
@@ -367,7 +367,7 @@ class MudCache extends MudGadget {
 
     if ( ! array_key_exists( $container, $this->table_map ) ) {
 
-      $this->table_map[ $container ] = 't_' . md5( $container );
+      $this->table_map[ $container ] = 't_' . mud_hash( $container );
 
     }
 
@@ -390,7 +390,7 @@ class MudCache extends MudGadget {
     //
     $cache_key = hash( 'sha512/224', $key, true );
     //$cache_key = hash( 'sha256', $key, true );
-    //$cache_key = md5( $key, true );
+    //$cache_key = mud_hash( $key, true );
 
     return $cache_key;
 

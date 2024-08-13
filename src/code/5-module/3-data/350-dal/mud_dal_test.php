@@ -202,7 +202,7 @@ declare_tests([
     $http_user_agent_hash_bin = mud_hash_bin( $http_user_agent );
     $http_user_agent_id = $dal->add_row_t_piece_mud_http_user_agent($http_user_agent, $http_user_agent_hash_bin );
 
-    $password = md5( uniqid( time(), $more_entropy = true ) );
+    $password = mud_hash( uniqid( time(), $more_entropy = true ) );
     $password_hash = mud_password_hash( $password );
     $password_hash_id = $dal->add_row_t_particle_mud_password_hash( $password_hash );
 
