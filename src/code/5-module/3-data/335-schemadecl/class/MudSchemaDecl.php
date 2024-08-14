@@ -1552,6 +1552,12 @@ class MudSchemaDecl extends MudSchemaDeclBase {
     }
   }
 
+  protected function quote( string $value ) {
+
+    return app_raw()->quote( $value );
+
+  }
+
   protected function get_min_default() {
 
     switch ( $this->get_col_type() ) {
