@@ -29,8 +29,8 @@ class MudDbadmin extends MudTool {
 
   public function load_dev_data( $argv ) {
 
-    $trn = new AppDalTrn;
-    $raw = new AppDalRaw;
+    $trn = new MudDalTrn;
+    $raw = new MudDalRaw;
 
     //$id = $raw->new_internal_id();
 
@@ -141,7 +141,7 @@ class MudDbadmin extends MudTool {
     $db = new MudDatabase( MUD_CONNECTION_TYPE_DBA );
     $upgrader = new MudDatabaseUpgrader( $db );
 
-    app_raw( new AppDalRaw );
+    app_raw( new MudDalRaw );
 
     $prefix = $db->get_prefix();
 
