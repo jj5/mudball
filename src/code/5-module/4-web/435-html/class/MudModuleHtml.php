@@ -1631,6 +1631,9 @@ class MudModuleHtml extends MudModuleWeb {
         $opt_space = false;
         $opt_break = true;
 
+        $this->opt_space = $opt_space;
+        $this->opt_break = $opt_break;
+
       }
       else {
 
@@ -1638,10 +1641,6 @@ class MudModuleHtml extends MudModuleWeb {
         $opt_break = $this->get_attr( $attrs, MUD_HTML_OPT_BREAK, $this->get_opt_break( ! DEBUG ) );
 
       }
-
-      $this->opt_space = $opt_space;
-      $this->opt_break = $opt_break;
-
     }
     else {
 
