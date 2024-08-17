@@ -24,4 +24,3 @@ The project has a home page, here:
  $ git add .gitmodules ext
  $ git commit -m "Add mudball"
 
-// 2024-08-17 jj5 - John was here.
