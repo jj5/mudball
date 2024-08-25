@@ -5,13 +5,13 @@
 export MUDBALL_NAME=''Mudball: Web Framework and Toolkit for PHP'';
 export MUDBALL_CODE=''mudball'';
 
-export MUDBALL_VERSION='0.5.1695';
+export MUDBALL_VERSION='0.5.1697';
 export MUDBALL_VERSION_MAJOR='0';
 export MUDBALL_VERSION_MINOR='5';
-export MUDBALL_VERSION_PATCH='1695';
+export MUDBALL_VERSION_PATCH='1697';
 
-export MUDBALL_SVN_DATE='Date: 2024-08-23 20:33:38 +1000 (Fri, 23 Aug 2024)';
-export MUDBALL_SVN_REVISION='Revision: 47068367';
+export MUDBALL_SVN_DATE='Date: 2024-08-25 17:43:02 +1000 (Sun, 25 Aug 2024)';
+export MUDBALL_SVN_REVISION='Revision: 254498882';
 export MUDBALL_SVN_AUTHOR='Author: jj5';
 
-export MUDBALL_GIT_DATE='2024-08-23 20:33:38 +1000 (Fri, 23 Aug 2024)';
+export MUDBALL_GIT_DATE='2024-08-25 17:43:02 +1000 (Sun, 25 Aug 2024)';
