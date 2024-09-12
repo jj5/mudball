@@ -5,7 +5,6 @@
 export MUDBALL_NAME=''Mudball: Web Framework and Toolkit for PHP'';
 export MUDBALL_CODE=''mudball'';
 
-<<<<<<< HEAD
 export MUDBALL_VERSION='0.5.1723';
 export MUDBALL_VERSION_MAJOR='0';
 export MUDBALL_VERSION_MINOR='5';
@@ -15,17 +14,5 @@ export MUDBALL_SVN_DATE='Date: 2024-09-12 01:46:25 +1000 (Thu, 12 Sep 2024)';
 export MUDBALL_SVN_REVISION='Revision: 5836513';
 export MUDBALL_SVN_AUTHOR='Author: jj5';
 
-export MUDBALL_GIT_DATE='2023-09-12 01:46:25 +1000 (Thu, 12 Sep 2024)';
+export MUDBALL_GIT_DATE='2024-09-12 01:46:25 +1000 (Thu, 12 Sep 2024)';
 
-=======
-export MUDBALL_VERSION='0.5.1681';
-export MUDBALL_VERSION_MAJOR='0';
-export MUDBALL_VERSION_MINOR='5';
-export MUDBALL_VERSION_PATCH='1681';
-
-export MUDBALL_SVN_DATE='Date: 2024-08-14 18:55:59 +1000 (Wed, 14 Aug 2024)';
-export MUDBALL_SVN_REVISION='Revision: 98131577';
-export MUDBALL_SVN_AUTHOR='Author: jj5';
-
-export MUDBALL_GIT_DATE='2024-08-14 18:55:59 +1000 (Wed, 14 Aug 2024)';
->>>>>>> 99daa40 (Work, work...)
