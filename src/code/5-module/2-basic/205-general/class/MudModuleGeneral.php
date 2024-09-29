@@ -145,6 +145,16 @@ class MudModuleGeneral extends MudModuleBasic {
 
   }
 
+  public function is_missing( $value ) : bool {
+
+    if ( ! $value ) { return true; }
+
+    if ( method_exists( $value, 'is_null' ) ) { return $value->is_null(); }
+
+    return false;
+
+  }
+
   public function assert( $test, $error = MUD_ERR_GENERAL, $data = null ) {
 
     if ( $test ) { return; }

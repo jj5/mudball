@@ -1652,7 +1652,7 @@ class MudModuleHtml extends MudModuleWeb {
 
   protected function is_cache_request() {
 
-    return is_cache_request();
+    return false;
 
   }
 

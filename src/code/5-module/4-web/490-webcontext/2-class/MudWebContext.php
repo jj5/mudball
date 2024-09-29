@@ -1,6 +1,6 @@
 <?php
 
-class MudWebContext extends MudGadget implements IMudRequest, IMudResponse, ArrayAccess {
+class MudWebContext extends MudGadget implements IMudWebContext {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -123,7 +123,7 @@ class MudModuleView extends MudModuleWeb {
 
         //tag_link( 'image/png', 'icon', bom_get_favicon_url() );
 
-        tag_link( 'image/x-icon', 'icon', app_url()->res( '/res/image/favicon.ico' ) );
+        //tag_link( 'image/x-icon', 'icon', app_url()->res( '/res/image/favicon.ico' ) );
 
 
         $copyright_url = $args[ 'copyright' ] ?? null;
@@ -159,9 +159,8 @@ class MudModuleView extends MudModuleWeb {
         //tag_link( 'text/css', 'stylesheet', 'https://www.staticmagic.net/global/table.css' );
         tag_link( 'text/css', 'stylesheet', 'https://d27cckvuinr11o.cloudfront.net/global/table.css' );
 
-        tag_link( 'text/css', 'stylesheet', app_url()->res( '/res/style' ) );
-
-        tag_link( 'text/css', 'stylesheet', app_url()->res( '/res/debug/style.css' ) );
+        //tag_link( 'text/css', 'stylesheet', app_url()->res( '/res/style' ) );
+        //tag_link( 'text/css', 'stylesheet', app_url()->res( '/res/debug/style.css' ) );
 
         foreach ( $args[ 'scripts' ] ?? [] as $url ) {
 
@@ -197,7 +196,7 @@ class MudModuleView extends MudModuleWeb {
 
               $this->render_nav_header( $context, $args );
 
-              if ( $flash = app_session()->flash() ) {
+              if ( $flash = mud_session()->flash() ) {
 
                 tag_text( 'p', $flash, [ 'class' => 'flash' ] );
 
@@ -261,7 +260,7 @@ class MudModuleView extends MudModuleWeb {
 
         }
 
-        tag_bare( 'script', [ 'src' => app_url()->res( '/res/script' ) ] );
+        //tag_bare( 'script', [ 'src' => app_url()->res( '/res/script' ) ] );
 
       tag_shut( 'body' );
 

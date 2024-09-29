@@ -5,7 +5,7 @@
 // 2021-03-19 jj5 - include dependencies...
 //
 
-require_once __DIR__ . '/../430-session/mud_session.php';
+require_once __DIR__ . '/../425-browser/mud_browser.php';
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ function doc_open() {
 function doc_is_initialized() {
 
   return mud_module_html()->doc_is_initialized();
-  
+
 }
 
 function doc_init(
@@ -177,7 +177,7 @@ function mud_html_get_opt( string $option, $default = null ) {
 
 }
 
-function mud_html_render_table(
+function mud_render_table(
   $context,
   array $table,
   array $attrs = [],
@@ -198,37 +198,37 @@ function mud_html_render_table(
   );
 }
 
-function mud_html_render_open_form_table( $context, array $attrs ) : MudModuleHtml {
+function mud_render_open_form_table( $context, array $attrs ) : MudModuleHtml {
 
   return mud_module_html()->render_open_form_table( $context, $attrs );
 
 }
 
-function mud_html_render_shut_form_table( $context, array $attrs ) : MudModuleHtml {
+function mud_render_shut_form_table( $context, array $attrs ) : MudModuleHtml {
 
   return mud_module_html()->render_shut_form_table( $context, $attrs );
 
 }
 
-function mud_html_render_input_row_text( $context, array $attrs ) : MudModuleHtml {
+function mud_render_input_row_text( $context, array $attrs ) : MudModuleHtml {
 
   return mud_module_html()->render_input_row_text( $context, $attrs );
 
 }
 
-function mud_html_render_input_row_password( $context, array $attrs ) : MudModuleHtml {
+function mud_render_input_row_password( $context, array $attrs ) : MudModuleHtml {
 
   return mud_module_html()->render_input_row_password( $context, $attrs );
 
 }
 
-function mud_html_render_input_row_submit( $context, array $attrs ) : MudModuleHtml {
+function mud_render_input_row_submit( $context, array $attrs ) : MudModuleHtml {
 
   return mud_module_html()->render_input_row_submit( $context, $attrs );
 
 }
 
-function mud_html_render_input_row_button( $context, array $attrs ) : MudModuleHtml {
+function mud_render_input_row_button( $context, array $attrs ) : MudModuleHtml {
 
   return mud_module_html()->render_input_row_button( $context, $attrs );
 

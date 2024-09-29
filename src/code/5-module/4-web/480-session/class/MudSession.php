@@ -1,13 +1,13 @@
 <?php
 
-class MudSessionBase extends MudService {
+class MudSession extends MudService {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-02-09 jj5 - constructor...
   //
 
-  public function __construct( MudSessionBase|null $previous = null ) {
+  public function __construct( MudSession|null $previous = null ) {
 
     parent::__construct( $previous );
 

@@ -27,11 +27,9 @@ class MudDalClassGenerator extends MudDalGeneratorBase {
 
     $this->print_class_raw( $traits_list );
 
-    $this->print_class_emu( $traits_list );
-
-    $this->print_class_aux( $traits_list );
-
-    $this->print_class_dba( $traits_list );
+    //$this->print_class_emu( $traits_list );
+    //$this->print_class_aux( $traits_list );
+    //$this->print_class_dba( $traits_list );
 
     $code = ob_get_clean();
 

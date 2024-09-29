@@ -334,9 +334,9 @@ class MudModuleSchemadecl extends MudModuleBasic {
 
         $schema = $file;
 
-        foreach ( scandir( "$search/$schema" ) as $file ) {
+        foreach ( scandir( "$search/$schema/table" ) as $file ) {
 
-          $path = "$search/$schema/$file";
+          $path = "$search/$schema/table/$file";
 
           if ( is_dir( $path ) ) { continue; }
 

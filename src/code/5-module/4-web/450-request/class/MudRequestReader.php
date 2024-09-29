@@ -164,7 +164,7 @@ class MudRequestReader extends MudGadget {
       //$_SESSION = [];
       $_SERVER = [];
 
-      $_REQEUST = [];
+      $_REQUEST = [];
 
     }
 

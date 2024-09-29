@@ -31,12 +31,17 @@ function mud_is_bool_name( string $name ) : bool {
 
 }
 
+function mud_is_missing( $value ) : bool {
+
+  return mud_module_general()->is_missing( $value );
+
+}
+
 function mud_assert( $test, $error = MUD_ERR_GENERAL, $data = null ) {
 
   return mud_module_general()->assert( $test, $error, $data );
 
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 2024-02-07 jj5 - service locator...

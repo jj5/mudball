@@ -2,43 +2,48 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 2022-04-08 jj5 - include dependencies...
+// 2024-09-29 jj5 - include dependencies...
 //
 
-require_once __DIR__ . '/../460-viewstate/mud_viewstate.php';
+require_once __DIR__ . '/../215-object/mud_object.php';
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 2022-04-08 jj5 - module errors...
+// 2024-09-29 jj5 - module errors...
 //
 
+//mud_define_error( 'MUD_ERR_IDENT_INVALID_EXTERNAL_ID', 'external ID is invalid.' );
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 2022-04-08 jj5 - include components...
+// 2024-09-29 jj5 - include components...
 //
 
-require_once __DIR__ . '/class/MudWebContext.php';
-require_once __DIR__ . '/class/MudModuleWebcontext.php';
+require_once __DIR__ . '/class/MudModuleModel.php';
+
+mud_load_deep_breadth_first( __DIR__ . '/class' );
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 2024-02-08 jj5 - factory methods...
+// 2024-09-29 jj5 - functional interface...
 //
 
-function new_mud_web_context( $request, $response, $view_state ) {
+/*
+function mud_new_external_id() : int {
 
-  return mud_module_webcontext()->new_mud_web_context( $request, $response, $view_state );
-  
+  return mud_module_ident()->new_external_id();
+
 }
+*/
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 2024-02-08 jj5 - service locator...
+// 2024-09-29 jj5 - service locator...
+//
 //
 
-function mud_module_webcontext() : MudModuleWebcontext {
+function mud_module_model() : MudModuleModel {
 
-  return mud_locator()->get_module( MudModuleWebcontext::class );
+  return mud_locator()->get_module( MudModuleModel::class );
 
 }

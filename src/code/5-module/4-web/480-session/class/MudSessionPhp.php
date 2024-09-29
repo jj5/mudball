@@ -1,6 +1,6 @@
 <?php
 
-class MudSessionPhp extends MudSessionBase {
+class MudSessionPhp extends MudSession {
 
   public function __construct() {
 
@@ -49,7 +49,7 @@ class MudSessionPhp extends MudSessionBase {
     }
     else {
 
-      $flash = app_request()->get_cookie( 'flash' );
+      $flash = mud_request()->get_cookie( 'flash' );
 
       $this->clear_cookie( 'flash' );
 

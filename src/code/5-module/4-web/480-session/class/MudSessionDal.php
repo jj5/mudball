@@ -1,6 +1,6 @@
 <?php
 
-class MudSessionDal extends MudSessionBase {
+class MudSessionDal extends MudSession {
 
   public function get_session_token() {
 

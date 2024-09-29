@@ -124,7 +124,7 @@ trait mud_mudballdb_2021_08_30_090715_lookup {
     def_idx( [ 'a_std_country_numeric_code' ], MUD_IDX_UNIQUE );
     def_idx( [ 'a_std_country_numeric_value' ], MUD_IDX_UNIQUE );
 
-    require_once __DIR__ . '/../../../../gen/country-code/country-code-schema.php';
+    require_once __DIR__ . '/../../../../../gen/country-code/country-code-schema.php';
 
   }
 
@@ -1481,7 +1481,7 @@ trait mud_mudballdb_2021_08_30_090715_lookup {
     def_idx( [ 'a_std_uri_scheme_code' ], MUD_IDX_UNIQUE );
     def_idx( [ 'a_std_uri_scheme_standard_port' ], MUD_IDX_INDEX );
 
-    require_once __DIR__ . '/../../../../gen/uri-scheme/uri-scheme-schema.php';
+    require_once __DIR__ . '/../../../../../gen/uri-scheme/uri-scheme-schema.php';
 
   }
 }
