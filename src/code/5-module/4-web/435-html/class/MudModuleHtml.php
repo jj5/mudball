@@ -1687,6 +1687,8 @@ class MudModuleHtml extends MudModuleWeb {
 
     $this->fix_attrs( $tag, $attrs );
 
+    $this->check_attrs( $tag, $attrs );
+
     array_push( $this->html_state[ 'stack-tags' ], $tag );
     array_push( $this->html_state[ 'stack-attrs' ], $attrs );
 
@@ -2496,20 +2498,6 @@ class MudModuleHtml extends MudModuleWeb {
       }
     }
 
-    $id = $attrs[ 'id' ] ?? null;
-
-    if ( $id !== null ) {
-
-      if ( array_key_exists( $id, $this->html_state[ 'id_map' ] ) ) {
-
-        mud_fail( MUD_ERR_HTML_DUPLICATE_ID, [ 'id' => $id ] );
-
-      }
-
-      $this->html_state[ 'id_map' ][ $id ] = true;
-
-    }
-
     foreach ( $attrs as $key => $val ) {
 
       if ( is_string( $val ) ) { continue; }
@@ -2568,6 +2556,23 @@ class MudModuleHtml extends MudModuleWeb {
         break;
 
       default :
+
+    }
+  }
+
+  protected function check_attrs( string $tag, array $attrs ) {
+
+    $id = $attrs[ 'id' ] ?? null;
+
+    if ( $id !== null ) {
+
+      if ( array_key_exists( $id, $this->html_state[ 'id_map' ] ) ) {
+
+        mud_fail( MUD_ERR_HTML_DUPLICATE_ID, [ 'id' => $id ] );
+
+      }
+
+      $this->html_state[ 'id_map' ][ $id ] = true;
 
     }
   }

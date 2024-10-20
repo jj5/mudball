@@ -13,7 +13,7 @@ require_once __DIR__ . '/../515-action/mud_action.php';
 //
 
 mud_define_error( 'MUD_ERR_HOST_INCLUDE_NOT_A_FACILITY', 'include is not a facility.' );
-mud_define_error( 'MUD_ERR_HOST_UNAUTHOIRZED', 'unauthoirzed access.' );
+mud_define_error( 'MUD_ERR_HOST_UNAUTHORIZED', 'unauthorized access.' );
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

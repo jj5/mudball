@@ -38,12 +38,12 @@ class MudWebController extends MudController {
       //
       http_response_code( $http_status_code );
 
-      app_interaction()->log_fail( $ex );
+      mud_interaction()->log_fail( $ex );
 
     }
     catch ( Throwable $ex ) {
 
-      app_interaction()->log_fail( $ex );
+      mud_interaction()->log_fail( $ex );
 
       $http_status_code = 500;
 
@@ -63,20 +63,20 @@ class MudWebController extends MudController {
 
   public function success( $message = null, $path = null, $query = null, $fragment = null ) {
 
-    app_orm()->save();
+    mud_orm()->save();
 
-    app_trn()->checkpoint();
+    mud_trn()->checkpoint();
 
-    if ( $message ) { app_session()->flash( $message ); }
+    if ( $message ) { mud_session()->flash( $message ); }
 
     if ( $path === null ) {
 
-      app_response()->redirect();
+      mud_response()->redirect();
 
     }
     else {
 
-      app_response()->redirect( app_url()->get_abs( $path, $query, $fragment ) );
+      mud_response()->redirect( mud_url()->get_abs( $path, $query, $fragment ) );
 
     }
   }
@@ -98,14 +98,14 @@ class MudWebController extends MudController {
 
     $request = $request_reader->read();
 
-    app_request( $request );
+    mud_request( $request );
 
-    app_url( new_mud_url( $request ) );
+    mud_url( new_mud_url( $request ) );
 
     $facility = $request->get_facility();
     //$facility = $this->get_facility( $request );
 
-    $session_token = app_session()->get_session_token();
+    $session_token = mud_session()->get_session_token();
 
     assert( $session_token ? true : false );
 
@@ -133,11 +133,11 @@ class MudWebController extends MudController {
 
         // 2022-05-02 jj5 - SEE: https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
 
-        app_trn()->random_delay();
+        mud_trn()->random_delay();
 
       }
 
-      app_trn()->begin();
+      mud_trn()->begin();
 
       try {
 
@@ -145,7 +145,7 @@ class MudWebController extends MudController {
 
         $this->try_process( $request );
 
-        app_trn()->commit();
+        mud_trn()->commit();
 
         ob_end_flush();
 
@@ -156,7 +156,7 @@ class MudWebController extends MudController {
 
         $last_exception = $ex;
 
-        app_trn()->rollback();
+        mud_trn()->rollback();
 
         if ( ! $ex->is_retryable() ) { break; }
 
@@ -171,7 +171,7 @@ class MudWebController extends MudController {
 
     $response = new_mud_response();
 
-    app_response( $response );
+    mud_response( $response );
 
     $request_path_parts = $request->get_request_path_parts();
 
@@ -187,13 +187,13 @@ class MudWebController extends MudController {
 
       case MUD_WEB_CATEGORY_ADMIN :
 
-        if ( ! app_user()->is_logged_in() ) {
+        if ( ! mud_user()->is_logged_in() ) {
 
           $this->redirect( '/util/login', [ 'goto' => $request->get_url() ] );
 
         }
 
-        mud_require( app_user()->is_admin() );
+        mud_require( mud_user()->is_admin() );
 
         break;
 
@@ -231,7 +231,7 @@ class MudWebController extends MudController {
 
         case MUD_WEB_CATEGORY_ADMIN :
 
-          mud_require( app_user()->is_admin() );
+          mud_require( mud_user()->is_admin() );
 
           break;
 
@@ -336,9 +336,9 @@ class MudWebController extends MudController {
 
   protected function redirect( $path, $query = null ) {
 
-    $url = app_url()->get_abs( $path, $query );
+    $url = mud_url()->get_abs( $path, $query );
 
-    return app_response()->redirect( $url );
+    return mud_response()->redirect( $url );
 
   }
 
@@ -356,7 +356,7 @@ class MudWebController extends MudController {
 
   protected function render_error( $http_status_code = false ) {
 
-    mud_render_head( app_null_object() );
+    mud_render_head( mud_null_object() );
 
       if ( $http_status_code ) {
 
@@ -369,19 +369,19 @@ class MudWebController extends MudController {
 
       }
 
-    mud_render_foot( app_null_object() );
+    mud_render_foot( mud_null_object() );
 
   }
 
   protected function render_offline() {
 
-    mud_render_head( app_null_object() );
+    mud_render_head( mud_null_object() );
 
       tag_text( 'p', 'The database is offline for maintenance.' );
 
       tag_text( 'p', 'Please try again later.' );
 
-    mud_render_foot( app_null_object() );
+    mud_render_foot( mud_null_object() );
 
   }
 
@@ -424,7 +424,7 @@ class MudWebController extends MudController {
 
   protected function complete() {
 
-    app_interaction()->log_complete();
+    mud_interaction()->log_complete();
 
     while ( ob_get_level() ) { ob_end_flush(); }
 
