@@ -32,16 +32,16 @@ define( 'MUDBALL_CONFIG_PATH', MUDBALL_PATH . '/' . MUDBALL_CONFIG_FILE );
 
   if ( file_exists( MUDBALL_CONFIG_PATH ) ) { require_once MUDBALL_CONFIG_PATH; }
 
-  // 2024-07-07 jj5 - NOTE: we load the application config file here, if it exists. This is so that we can get access to
+  // 2024-07-07 jj5 - NOTE: we load the debug config file here, if it exists. This is so that we can get access to
   // DEBUG and DEV constants while we are loading...
 
   $app_dir = realpath( __DIR__ . '/../../../../../' );
-  $app_config = $app_dir . '/config.php';
+  $app_config = $app_dir . '/debug.php';
 
   if ( file_exists( $app_config ) ) { require_once $app_config; }
 
-  // 2024-07-07 jj5 - having now loaded both of the config files (if they exist) we can now define the DEBUG and DEV
-  // constants...
+  // 2024-07-07 jj5 - having now loaded both of the debug config file (if it exists) we can now define the DEBUG and DEV
+  // constants if they haven't already been defined...
 
   if ( ! defined( 'DEBUG' ) ) { define( 'DEBUG',  false ); }
 
