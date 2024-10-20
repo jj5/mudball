@@ -153,7 +153,7 @@ function mud_log_try_warn( $message ) {
 //
 function mud_log_exception_handled( Throwable $ex ) {
 
-  return mud_module_log()->log_exception( $ex, MudExceptionSort::HANDLED );
+  return mud_module_log()->log_exception( $ex, MudExceptionKind::HANDLED );
 
 }
 
@@ -162,7 +162,7 @@ function mud_log_exception_handled( Throwable $ex ) {
 //
 function mud_log_exception_ignored( Throwable $ex ) {
 
-  return mud_module_log()->log_exception( $ex, MudExceptionSort::IGNORED );
+  return mud_module_log()->log_exception( $ex, MudExceptionKind::IGNORED );
 
 }
 
@@ -171,7 +171,7 @@ function mud_log_exception_ignored( Throwable $ex ) {
 //
 function mud_log_exception_fatal( Throwable $ex ) {
 
-  return mud_module_log()->log_exception( $ex, MudExceptionSort::FATAL );
+  return mud_module_log()->log_exception( $ex, MudExceptionKind::FATAL );
 
 }
 
@@ -202,20 +202,6 @@ function mud_log_exception_shutdown(
 
 }
 */
-
-// 2024-01-21 jj5 - THINK: should this even exist? Is it ever used? As mentioned above the
-// implementation of this method should probably assume less about what's still available in
-// the environment as things such as database connections etc might have been disconnected by
-// now.
-//
-// 2024-01-21 jj5 - TODO: review the implementation of this method.
-//
-function mud_log_exception_shutdown( Throwable $ex ) {
-
-  return mud_module_log()->log_exception( $ex, MudExceptionSort::SHUTDOWN );
-
-}
-
 
 
 //

@@ -20,12 +20,11 @@ class MudModuleLog extends MudModuleWebLog {
   //
 
   public $settings = [
-    MudExceptionSort::PREVIOUS  => [ 'level' => MUD_LOG_LEVEL_6_INFO,     'final' => false, 'max' =>  0 ],
-    MudExceptionSort::HANDLED   => [ 'level' => MUD_LOG_LEVEL_5_NOTICE,   'final' => false, 'max' =>  2 ],
-    MudExceptionSort::IGNORED   => [ 'level' => MUD_LOG_LEVEL_4_WARNING,  'final' => false, 'max' =>  4 ],
-    MudExceptionSort::SHUTDOWN  => [ 'level' => MUD_LOG_LEVEL_3_ERROR,    'final' => false, 'max' =>  6 ],
-    MudExceptionSort::FATAL     => [ 'level' => MUD_LOG_LEVEL_2_CRITICAL, 'final' => true,  'max' =>  8 ],
-    MudExceptionSort::UNHANDLED => [ 'level' => MUD_LOG_LEVEL_2_CRITICAL, 'final' => true,  'max' => 10 ],
+    MudExceptionKind::PREVIOUS->value   => [ 'level' => MUD_LOG_LEVEL_6_INFO,     'final' => false ],
+    MudExceptionKind::HANDLED->value    => [ 'level' => MUD_LOG_LEVEL_5_NOTICE,   'final' => false ],
+    MudExceptionKind::IGNORED->value    => [ 'level' => MUD_LOG_LEVEL_4_WARNING,  'final' => false ],
+    MudExceptionKind::FATAL->value      => [ 'level' => MUD_LOG_LEVEL_3_ERROR,    'final' => true  ],
+    MudExceptionKind::UNHANDLED->value  => [ 'level' => MUD_LOG_LEVEL_3_ERROR,    'final' => true  ],
   ];
 
 
@@ -162,19 +161,19 @@ class MudModuleLog extends MudModuleWebLog {
 
   }
 
-  public function log_exception( Throwable $exception, int $sort, bool $pclog = true ) {
+  public function log_exception( Throwable $exception, MudExceptionKind $kind, bool $pclog = true ) {
 
     try {
 
       if ( $pclog ) {
 
-        mud_pclog_log_exception( $exception, $sort );
+        mud_pclog_log_exception( $exception, $kind );
 
       }
 
       $previous = $exception->getPrevious();
 
-      if ( $previous ) { $this->log_exception( $previous, MudExceptionSort::PREVIOUS, false ); }
+      if ( $previous ) { $this->log_exception( $previous, MudExceptionKind::PREVIOUS, false ); }
 
       $type = get_class( $exception );
       $code = $exception->getCode();
@@ -194,7 +193,7 @@ class MudModuleLog extends MudModuleWebLog {
 
       }
 
-      $level = $this->settings[ $sort ][ 'level' ];
+      $level = $this->settings[ $kind->value ][ 'level' ];
 
       return $this->log( $message, $level );
 

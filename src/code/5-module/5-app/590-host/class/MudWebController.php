@@ -38,18 +38,16 @@ class MudWebController extends MudController {
       //
       http_response_code( $http_status_code );
 
-      mud_interaction()->log_fail( $ex );
+      mud_pclog_log_exception( $ex, MudExceptionKind::FATAL );
 
     }
     catch ( Throwable $ex ) {
-
-      mud_interaction()->log_fail( $ex );
 
       $http_status_code = 500;
 
       http_response_code( $http_status_code );
 
-      if ( DEBUG ) { throw $ex; }
+      mud_pclog_log_exception( $ex, MudExceptionKind::FATAL );
 
     }
 

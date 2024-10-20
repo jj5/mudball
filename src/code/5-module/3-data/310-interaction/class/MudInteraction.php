@@ -178,6 +178,8 @@ class MudInteraction extends MudService {
 
   public function log_fail( $ex = null ) {
 
+    mud_pclog_log_exception( $ex );
+
     if ( ! $this->is_live() ) { return false; }
 
     $this->require_live();

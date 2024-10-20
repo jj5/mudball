@@ -944,7 +944,6 @@ define( 'MUD_DATABASE_OPERATION_SET',               'set'               );
 define( 'MUD_EXCEPTION_PREVIOUS',   'previous'  );
 define( 'MUD_EXCEPTION_HANDLED',    'handled'   );
 define( 'MUD_EXCEPTION_IGNORED',    'ignored'   );
-define( 'MUD_EXCEPTION_SHUTDOWN',   'shutdown'  );
 define( 'MUD_EXCEPTION_FATAL',      'fatal'     );
 define( 'MUD_EXCEPTION_UNHANDLED',  'unhandled' );
 

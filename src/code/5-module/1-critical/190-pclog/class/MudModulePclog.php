@@ -100,7 +100,7 @@ class MudModulePclog extends MudModuleCritical {
 
     //mud_dump( $ex->data ); exit;
 
-    $this->log_exception( $ex, MudExceptionSort::UNHANDLED, $report, $issue );
+    $this->log_exception( $ex, MudExceptionKind::UNHANDLED, $report, $issue );
 
     $this->write_report( 'exception', $report );
 
@@ -366,20 +366,29 @@ class MudModulePclog extends MudModuleCritical {
 
   }
 
-  public function log_exception( $ex, int $sort, &$report = null, &$issue = null ) {
+  public function log_exception( $ex, MudExceptionKind $kind, &$report = null, &$issue = null ) {
 
-    $level  = mud_module_log()->settings[ $sort ][ 'level' ];
-    $final  = mud_module_log()->settings[ $sort ][ 'final' ];
-    $max    = mud_module_log()->settings[ $sort ][ 'max'   ];
+    $level = mud_module_log()->settings[ $kind->value ][ 'level' ];
+    $final = mud_module_log()->settings[ $kind->value ][ 'final' ];
 
-    if ( $final ) { $this->final = true; }
+    if ( $final ) {
 
-    if ( $this->exception_log_count >= $max ) {
+      assert( $this->final === false );
 
-      mud_log_try_warn( 'pclog has logged too many exceptions.' );
+      if ( $this->final ) { return false; }
 
-      return false;
+      $this->final = true;
 
+    }
+    else {
+
+      if ( $this->exception_log_count >= 100 ) {
+
+        mud_log_try_warn( 'pclog has logged too many exceptions.' );
+
+        return false;
+
+      }
     }
 
     $this->exception_log_count++;
@@ -388,28 +397,7 @@ class MudModulePclog extends MudModuleCritical {
 
       $report = null;
       $issue = null;
-      $status = MudExceptionSort::GetCode( $sort );
-
-      $type = get_class( $ex );
-      $file = $ex->getFile();
-      $line = $ex->getLine();
-      $code = $ex->getCode();
-      $mesg = $ex->getMessage();
-
-      $json = $this->json_encode( isset( $ex->data ) ? $ex->data : null );
-
-      // 2018-06-19 jj5 - here we fix up what we report for TypeError
-      // exceptions...
-      //
-      $regex = '|^(.*), called in (.*) on line (.*)$|';
-
-      if ( preg_match( $regex, $mesg, $matches ) ) {
-
-        $mesg = $matches[ 1 ] . '.';
-        $file = $matches[ 2 ];
-        $line = $matches[ 3 ];
-
-      }
+      $status = $kind->name;
 
       $form = MUD_PCLOG_FORM_EXCEPTION;
 
