@@ -27,7 +27,12 @@ class MudControllerWeb extends MudController {
       $http_status_code = $ex->get_http_status_code();
       $http_status_message = $ex->get_http_status_message();
 
-      if ( $http_status_code >= 400 ) {
+      if ( $http_status_code >= 300 && $http_status_code < 400 ) {
+
+        header( 'Location: ' . $ex->get_location(), $replace = true, $http_status_code );
+
+      }
+      elseif ( $http_status_code >= 400 ) {
 
         $fatal_exception = $ex;
 
@@ -50,7 +55,7 @@ class MudControllerWeb extends MudController {
 
     if ( ! $fatal_exception ) {
 
-      assert( $http_status_code === 200 );
+      assert( $http_status_code < 400 );
 
       try {
 
@@ -66,6 +71,7 @@ class MudControllerWeb extends MudController {
         $fatal_exception = $ex;
 
         $http_status_code = 500;
+        $http_status_message = 'An error occurred completing your request.';
 
         mud_pclog_log_fatal( $ex );
 
@@ -73,8 +79,6 @@ class MudControllerWeb extends MudController {
     }
 
     while ( ob_get_level() ) { ob_end_clean(); }
-
-    $http_status_message = 'An error occurred processing your request.';
 
     $this->render_error( $http_status_code, $http_status_message );
 

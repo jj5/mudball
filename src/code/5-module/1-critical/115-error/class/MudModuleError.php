@@ -30,6 +30,8 @@ class MudModuleError extends MudModuleCritical {
 
   public function __construct() {
 
+    parent::__construct();
+
     if ( ! defined( 'MUD_ERR_SUCCESS' ) ) {
 
       $this->add_error( 0, 'MUD_ERR_SUCCESS', 'program completed successfully.' );

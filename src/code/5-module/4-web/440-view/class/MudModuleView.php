@@ -27,7 +27,9 @@ class MudModuleView extends MudModuleWeb {
   // 2022-03-20 jj5 - public methods...
   //
 
-  public function render_head( $context, $args = [] ) {
+  public function render_head( $context = null, $args = [] ) {
+
+    if ( ! $context ) { $context = mud_null_object(); }
 
     $iframe = $args[ 'iframe' ] ?? false;
 
@@ -221,7 +223,9 @@ class MudModuleView extends MudModuleWeb {
 
   }
 
-  public function render_foot( $context, $args = [] ) {
+  public function render_foot( $context = null, $args = [] ) {
+
+        if ( ! $context ) { $context = mud_null_object(); }
 
         $iframe = $args[ 'iframe' ] ?? false;
 

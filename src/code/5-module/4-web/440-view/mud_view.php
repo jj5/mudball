@@ -23,13 +23,13 @@ require_once __DIR__ . '/class/MudModuleView.php';
 // 2021-08-24 jj5 - functional interface...
 //
 
-function mud_render_head( $context, $args = [] ) {
+function mud_render_head( $context = null, $args = [] ) {
 
   return mud_module_view()->render_head( $context, $args );
 
 }
 
-function mud_render_foot( $context, $args = [] ) {
+function mud_render_foot( $context = null, $args = [] ) {
 
   return mud_module_view()->render_foot( $context, $args );
 

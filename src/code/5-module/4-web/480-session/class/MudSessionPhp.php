@@ -66,13 +66,17 @@ class MudSessionPhp extends MudSession {
 
   protected function clear_cookie( $name ) {
 
-    setcookie( $this->get_cookie_name( $name ), '', time() - ( 3600 * 24 ), '/' );
+    $cookie_name = $this->get_cookie_name( $name );
+
+    if ( ! array_key_exists( $cookie_name, $_COOKIE ) ) { return; }
+
+    setcookie( $cookie_name, '', 0, '/' );
 
   }
 
   protected function get_cookie_name( $name ) {
 
-    $cookie_prefix = mud_get_config( [ 'app', 'cookie', 'prefix' ], '' );
+    $cookie_prefix = mud_get_config( [ 'app', 'cookie', 'prefix' ], APP_CODE . '_' );
 
     return "{$cookie_prefix}{$name}";
 
