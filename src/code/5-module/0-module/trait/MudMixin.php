@@ -9,6 +9,14 @@
 
 trait MudMixin {
 
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-10-21 jj5 - traits...
+  //
+
+  use MudCreationMixin;
+
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-07-23 jj5 - private static fields...
   //
@@ -94,7 +102,15 @@ trait MudMixin {
 
     }
 
-    return $class_map[ $class ]->newInstanceArgs( func_get_args() );
+    $result = $class_map[ $class ]->newInstanceArgs( func_get_args() );
+
+    if ( ! $result ) {
+
+      throw new Exception( "Failed to create instance of class '$class'." );
+
+    }
+
+    return $result;
 
   }
 

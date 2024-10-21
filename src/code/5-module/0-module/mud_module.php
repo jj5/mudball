@@ -12,9 +12,10 @@ require_once __DIR__ . '/../../1-bootstrap/4-config.php';
 // 2024-02-08 jj5 - include components...
 //
 
+require_once __DIR__ . '/trait/MudCreationMixin.php';
 require_once __DIR__ . '/trait/MudMixin.php';
 
-  require_once __DIR__ . '/class/0-MudGadgetBase.php';
+require_once __DIR__ . '/class/0-MudGadgetBase.php';
 
 if ( DEBUG ) {
 

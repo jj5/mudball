@@ -285,7 +285,7 @@ class MudModuleValue extends MudModuleBasic {
       if ( is_array( $argument ) ) { $argument = $argument[ 0 ] ?? null;}
 
       return $this->get_atom( $class, $argument );
-      
+
     }
 
     assert( is_a( $class, IMudComposite::class ) );
@@ -391,7 +391,7 @@ class MudModuleValue extends MudModuleBasic {
 
   protected function new_null_object() : IMudNullObject {
 
-    return new MudNullObject();
+    return MudNullObject::Create();
 
   }
 

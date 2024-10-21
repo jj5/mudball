@@ -4,6 +4,13 @@ abstract class MudNullValue implements IMudNullValue {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-10-21 jj5 - traits...
+  //
+
+  use MudCreationMixin;
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-30 jj5 - Stringable interface...
   //
 
@@ -181,7 +188,7 @@ abstract class MudNullValue implements IMudNullValue {
   public function new_date_time() : DateTime { return new DateTime( 'now' ); }
 
   public function get_datetime() : DateTimeImmutable {
-    
+
     static $result = new DateTimeImmutable( '@0' );
 
     return $result;
@@ -240,9 +247,9 @@ abstract class MudNullValue implements IMudNullValue {
   //
 
   public function get_interval() : DateInterval {
-    
+
     static $result = new DateInterval( 'PT0S' );
-    
+
     return $result;
 
   }

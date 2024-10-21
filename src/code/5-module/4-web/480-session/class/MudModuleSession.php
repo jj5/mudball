@@ -44,7 +44,7 @@ class MudModuleSession extends MudModuleWeb {
 
   protected function new_session() : MudSession {
 
-    return new MudSessionPhp();
+    return MudSessionPhp::Create();
 
   }
 }

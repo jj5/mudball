@@ -12,7 +12,7 @@ class MudModulePclogDispatcher extends MudGadget {
   // 2021-03-04 jj5 - constructur...
   //
 
-  private function __construct() {
+  public function __construct() {
 
     parent::__construct();
 
@@ -48,7 +48,7 @@ class MudModulePclogDispatcher extends MudGadget {
 
   public static function Attach() {
 
-    return new MudModulePclogDispatcher();
+    return MudModulePclogDispatcher::Create();
 
   }
 

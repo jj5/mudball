@@ -20,8 +20,8 @@ class MudModuleDal extends MudModuleData {
 
   public function new_mud_database_raw() {
 
-    return new MudDatabaseRaw();
-    
+    return MudDatabaseRaw::Create();
+
   }
 
 

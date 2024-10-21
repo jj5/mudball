@@ -34,7 +34,7 @@ class MudModuleSchemadecl extends MudModuleBasic {
 
   public function new_mud_schema_decl( $info, $type, $name_spec, $attrs, $prev, $file, $line ) {
 
-    return new MudSchemaDecl( $info, $type, $name_spec, $attrs, $prev, $file, $line );
+    return MudSchemaDecl::Create( $info, $type, $name_spec, $attrs, $prev, $file, $line );
 
   }
 

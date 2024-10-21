@@ -20,7 +20,7 @@ class MudModuleWebcontext extends MudModuleWeb {
 
   public function new_mud_web_context( $request, $response, $view_state ) {
 
-    return new MudWebContext( $request, $response, $view_state );
-    
+    return MudWebContext::Create( $request, $response, $view_state );
+
   }
 }

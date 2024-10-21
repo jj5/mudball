@@ -52,31 +52,31 @@ class MudModuleLog extends MudModuleWebLog {
 
   public function new_mud_logger_null() {
 
-    return new MudLoggerNull();
+    return MudLoggerNull::Instance();
 
   }
 
   public function new_mud_logger_stderr( int $level = MUD_DEFAULT_LOG_LEVEL ) {
 
-    return new MudLoggerStderr( $level );
+    return MudLoggerStderr::Create( $level );
 
   }
 
   public function new_mud_logger_weblog( int $level = MUD_DEFAULT_LOG_LEVEL ) {
 
-    return new MudLoggerWeblog( $level );
+    return MudLoggerWeblog::Create( $level );
 
   }
 
   public function new_mud_logger_syslog( $copy_to_stderr = true, int $level = MUD_DEFAULT_LOG_LEVEL ) {
 
-    return new MudLoggerSyslog( $copy_to_stderr, $level );
+    return MudLoggerSyslog::Create( $copy_to_stderr, $level );
 
   }
 
   public function new_mud_logger_file( string $path, int $level = MUD_DEFAULT_LOG_LEVEL ) {
 
-    return new MudLoggerFile( $path, $level );
+    return MudLoggerFile::Create( $path, $level );
 
   }
 

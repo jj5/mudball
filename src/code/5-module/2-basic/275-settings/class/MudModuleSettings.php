@@ -25,13 +25,13 @@ class MudModuleSettings extends MudModuleBasic {
 
   function new_mud_constant( string $const_name, $default_value = null ) {
 
-    return new MudConstant( $const_name, $default_value );
+    return MudConstant::Create( $const_name, $default_value );
 
   }
 
   function new_mud_settings( array $settings, array $defaults = [] ) {
 
-    return new MudSettings( $settings, $defaults );
+    return MudSettings::Create( $settings, $defaults );
 
   }
 

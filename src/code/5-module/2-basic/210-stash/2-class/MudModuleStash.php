@@ -49,7 +49,7 @@ class MudModuleStash extends MudModuleBasic {
 
   protected function new_stash( $name ) {
 
-    return new MudStash( $name );
+    return MudStash::Create( $name );
 
   }
 }

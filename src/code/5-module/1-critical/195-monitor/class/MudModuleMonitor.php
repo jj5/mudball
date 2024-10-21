@@ -25,13 +25,13 @@ class MudModuleMonitor extends MudModuleCritical {
 
   public function new_mud_monitor_array( $monitor_object ) {
 
-    return new MudMonitorArray( $monitor_object );
+    return MudMonitorArray::Create( $monitor_object );
 
   }
 
   public function new_mud_monitor_standard( $monitor_object ) {
 
-    return new MudMonitorStandard( $monitor_object );
+    return MudMonitorStandard::Create( $monitor_object );
 
   }
 
