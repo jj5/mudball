@@ -14,7 +14,7 @@ abstract class MudDalBase extends MudService {
 
   // 2019-12-02 jj5 - our cache object...
   //
-  protected $cache;
+  protected $cache = null;
 
   /*
   // 2019-07-08 jj5 - pdo_raw is for logging, it uses autocommit transactions...
@@ -36,22 +36,9 @@ abstract class MudDalBase extends MudService {
   private $pdo_trn_disable = false;
   */
 
-  private $database;
-
+  private $database = null;
 
   private $entity_id_list = null;
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-02-09 jj5 - constructor...
-  //
-
-  public function __construct( MudDalBase|null $previous = null ) {
-
-    parent::__construct( $previous );
-
-  }
-
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -44,9 +44,9 @@ class MudModuleValue extends MudModuleBasic {
   // 2024-06-29 jj5 - constructor...
   //
 
-  public function __construct( MudModuleValue|null $previous = null) {
+  public function __construct() {
 
-    parent::__construct( $previous );
+    parent::__construct();
 
     $this->true = $this->get_atom( MudTrue::class, '1' );
     $this->false = $this->get_atom( MudFalse::class, '0' );
@@ -54,7 +54,7 @@ class MudModuleValue extends MudModuleBasic {
     $this->positive = $this->get_atom( MudPositive::class, '+' );
     $this->negative = $this->get_atom( MudNegative::class, '-' );
 
-    $this->null_object = $this->new_null_object();
+    $this->null_object = MudNullObject::Instance();
 
   }
 

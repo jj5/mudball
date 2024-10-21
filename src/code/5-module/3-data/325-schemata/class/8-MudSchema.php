@@ -14,14 +14,13 @@ class MudSchema extends MudService {
   // 2024-02-09 jj5 - constructor...
   //
 
-  public function __construct( MudSchema|null $previous = null ) {
+  public function __construct() {
 
-    parent::__construct( $previous );
+    parent::__construct();
 
     $this->schemata = mud_schemata();
 
   }
-
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

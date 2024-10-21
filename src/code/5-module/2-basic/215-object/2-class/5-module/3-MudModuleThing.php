@@ -25,9 +25,9 @@ class MudModuleThing extends MudModuleValue {
   // 2024-06-29 jj5 - constructor...
   //
 
-  public function __construct( MudModuleThing|null $previous = null) {
+  public function __construct() {
 
-    parent::__construct( $previous );
+    parent::__construct();
 
     $this->null_thing = new MudNullObject();
 

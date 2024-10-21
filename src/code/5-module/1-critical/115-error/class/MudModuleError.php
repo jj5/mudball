@@ -28,18 +28,7 @@ class MudModuleError extends MudModuleCritical {
   // 2024-02-08 jj5 - constructor...
   //
 
-  public function __construct( MudModuleError|null $previous = null ) {
-
-    parent::__construct( $previous );
-
-    if ( $previous ) {
-
-      $this->error_map = $previous->error_map;
-      $this->name_map = $previous->name_map;
-      $this->scope_map = $previous->scope_map;
-      $this->counter_map = $previous->counter_map;
-
-    }
+  public function __construct() {
 
     if ( ! defined( 'MUD_ERR_SUCCESS' ) ) {
 

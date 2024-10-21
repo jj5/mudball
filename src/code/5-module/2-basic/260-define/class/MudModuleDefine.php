@@ -9,17 +9,6 @@ class MudModuleDefine extends MudModuleBasic {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-02-09 jj5 - constructor...
-  //
-
-  public function __construct( MudModuleDefine|null $previous = null) {
-
-    parent::__construct( $previous );
-
-  }
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2021-10-18 jj5 - public functions...
   //
 
@@ -271,7 +260,7 @@ class MudModuleDefine extends MudModuleBasic {
         $iso_date = $matches[ 1 ] . ' ' . $matches[ 2 ] . ' ' . $matches[ 3 ];
 
         $date = date( "D, j M y H:i:s O", strtotime( $iso_date ) );
-        
+
       }
 
       if ( preg_match( '/Revision: ([^ ]*)/', $line, $matches ) ) {

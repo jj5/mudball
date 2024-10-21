@@ -34,17 +34,6 @@ class MudModulePclog extends MudModuleCritical {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-02-09 jj5 - constructor...
-  //
-
-  public function __construct( MudModulePclog|null $previous = null ) {
-
-    parent::__construct( $previous );
-
-  }
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2021-02-24 jj5 - public static functions...
   //
 
@@ -1191,7 +1180,14 @@ $trace
     $file = $ex->getFile();
     $line = $ex->getLine();
     $code = $ex->getCode();
-    $data = isset( $ex->data ) ? $this->redact_secrets( $ex->data ) : null;
+    $data = null;
+
+    if ( method_exists( $ex, 'getData' ) ) {
+
+      $data = $this->redact_secrets( $ex->getData() );
+
+    }
+
     $trace = $this->redact_secrets( $ex->getTrace() );
 
     return [

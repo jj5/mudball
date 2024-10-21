@@ -909,17 +909,6 @@ class MudModuleHtml extends MudModuleWeb {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-02-12 jj5 - constructor...
-  //
-
-  public function __construct( MudModuleHtml|null $previous = null ) {
-
-    parent::__construct( $previous );
-
-  }
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2021-10-18 jj5 - public functions...
   //
 
@@ -2421,7 +2410,7 @@ class MudModuleHtml extends MudModuleWeb {
 
         if ( count( $parts ) ) {
 
-          $result .= $join . mud_henc( $name ) . '=' . $quote . implode( $glue, $parts ) . $quote;
+          $result .= ' ' . mud_henc( $name ) . '=' . $quote . implode( $glue, $parts ) . $quote;
 
         }
       }

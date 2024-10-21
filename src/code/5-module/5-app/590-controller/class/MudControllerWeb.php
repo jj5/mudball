@@ -10,6 +10,7 @@ class MudControllerWeb extends MudController {
   public function run() {
 
     $http_status_code = null;
+    $http_status_message = null;
     $fatal_exception = null;
 
     try {
@@ -24,20 +25,13 @@ class MudControllerWeb extends MudController {
     catch ( MudHttpException $ex ) {
 
       $http_status_code = $ex->get_http_status_code();
+      $http_status_message = $ex->get_http_status_message();
 
       if ( $http_status_code >= 400 ) {
 
         $fatal_exception = $ex;
 
-        // 2023-02-22 jj5 - the response code should already be set...
-        //
-        assert( http_response_code() === $http_status_code );
-
-        // 2023-02-22 jj5 - but if it's not we'll set it here, just in case...
-        //
-        http_response_code( $http_status_code );
-
-        mud_pclog_log_exception( $ex, MudExceptionKind::FATAL );
+        mud_pclog_log_fatal( $ex );
 
       }
     }
@@ -46,34 +40,43 @@ class MudControllerWeb extends MudController {
       $fatal_exception = $ex;
 
       $http_status_code = 500;
+      $http_status_message = 'An error occurred processing your request.';
 
-      http_response_code( $http_status_code );
-
-      mud_pclog_log_exception( $ex, MudExceptionKind::FATAL );
+      mud_pclog_log_fatal( $ex );
 
     }
 
+    http_response_code( $http_status_code );
+
     if ( ! $fatal_exception ) {
+
+      assert( $http_status_code === 200 );
 
       try {
 
-        return $this->complete();
+        $this->complete();
+
+        while ( ob_get_level() ) { ob_end_flush(); }
+
+        return true;
 
       }
       catch ( Throwable $ex ) {
 
         $fatal_exception = $ex;
 
-        http_response_code( 500 );
+        $http_status_code = 500;
 
-        mud_pclog_log_exception( $ex, MudExceptionKind::FATAL );
+        mud_pclog_log_fatal( $ex );
 
       }
     }
 
     while ( ob_get_level() ) { ob_end_clean(); }
 
-    $this->render_error( $http_status_code );
+    $http_status_message = 'An error occurred processing your request.';
+
+    $this->render_error( $http_status_code, $http_status_message );
 
     return false;
 
@@ -127,11 +130,7 @@ class MudControllerWeb extends MudController {
 
     if ( ! $this->is_online() ) {
 
-      http_response_code( 500 );
-
-      $this->render_offline();
-
-      return false;
+      throw new_mud_http_exception( 500, 'The database is offline for maintenance.' );
 
     }
 
@@ -366,79 +365,50 @@ class MudControllerWeb extends MudController {
 
   }
 
-  protected function render_error( $http_status_code = false ) {
+  protected function render_error( int $http_status_code, string $http_status_message = '' ) {
+
+    http_response_code( $http_status_code );
 
     mud_render_head( mud_null_object() );
 
-      if ( $http_status_code ) {
+      tag_text( 'h1', 'Error ' . $http_status_code );
 
-        $this->render_http_error( $http_status_code );
+      $status_string = strval( $http_status_code );
+
+      if ( $http_status_message ) {
+
+        tag_text( 'p', $http_status_message );
+
+      }
+      elseif ( $http_status_code === 404 ) {
+
+        tag_text( 'p', 'The page you requested could not be found.' );
+
+      }
+      elseif ( $status_string && $status_string[ 0 ] === '4' ) {
+
+        tag_text( 'p', 'There was a problem with your request.' );
 
       }
       else {
 
-        $this->render_generic_error();
+        tag_text( 'p', 'Something went wrong processing your request.' );
+
+        tag_text( 'p', 'This has been logged and will be investigated.' );
 
       }
 
-    mud_render_foot( mud_null_object() );
+      tag_text( 'p', 'This problem has been logged and will be investigated.' );
 
-  }
-
-  protected function render_offline() {
-
-    mud_render_head( mud_null_object() );
-
-      tag_text( 'p', 'The database is offline for maintenance.' );
-
-      tag_text( 'p', 'Please try again later.' );
+      tag_text( 'p', 'In the mean time you can retry your operation, or try again later.' );
 
     mud_render_foot( mud_null_object() );
-
-  }
-
-
-  protected function render_http_error( $http_status_code ) {
-
-    switch ( $http_status_code ) {
-
-      case 404:
-
-        tag_text( 'p', 'The page you requested cannot be found.' );
-
-        return;
-
-    }
-
-    $status_string = strval( $http_status_code );
-
-    if ( $status_string && $status_string[ 0 ] === '4' ) {
-
-      tag_text( 'p', 'There was a problem with your request.' );
-
-    }
-    else {
-
-      $this->render_generic_error();
-
-    }
-  }
-
-  protected function render_generic_error() {
-
-    tag_text( 'p', 'Something went wrong processing your request.' );
-
-    tag_text( 'p', 'This has been logged and will be investigated.' );
-
-    tag_text( 'p', 'In the mean time you can retry your operation, or try again later.' );
 
   }
 
   protected function complete() {
 
     mud_interaction()->log_complete();
-
-    while ( ob_get_level() ) { ob_end_flush(); }
 
     return true;
 

@@ -25,18 +25,6 @@ class MudController extends MudService implements IMudController {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-02-09 jj5 - constructor...
-  //
-
-  public function __construct( MudController|null $previous = null ) {
-
-    parent::__construct( $previous );
-
-  }
-
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2022-02-20 jj5 - public interface...
   //
 
@@ -152,6 +140,14 @@ class MudController extends MudService implements IMudController {
     catch ( Throwable $ex ) {
 
       $this->is_online = false;
+
+      throw new_mud_http_exception(
+        $http_status_code = 500,
+        $http_status_message = 'Database is offline for maintenance.',
+        $location = mud_url()->to_string(),
+        $data = null,
+        $previous = $ex,
+      );
 
     }
   }

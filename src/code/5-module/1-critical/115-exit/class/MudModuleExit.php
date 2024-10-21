@@ -20,24 +20,6 @@ class MudModuleExit extends MudModuleCritical {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-02-09 jj5 - constructor...
-  //
-
-  public function __construct( MudModuleExit|null $previous = null) {
-
-    parent::__construct( $previous );
-
-    if ( $previous ) {
-
-      $this->exit_map = $previous->exit_map;
-      $this->name_map = $previous->name_map;
-      $this->error_level = $previous->error_level;
-
-    }
-  }
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-02-09 jj5 - destructor...
   //
 

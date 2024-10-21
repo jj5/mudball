@@ -26,24 +26,6 @@ class MudLocator extends MudService {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // 2024-02-09 jj5 - constructor...
-  //
-
-  public function __construct( MudLocator|null $previous = null ) {
-
-    parent::__construct( $previous );
-
-    if ( $previous ) {
-
-      $this->module_map = $previous->module_map;
-      $this->module_indicator_map = $previous->module_indicator_map;
-      $this->service_map = $previous->service_map;
-
-    }
-  }
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-02-08 jj5 - public methods...
   //
 

@@ -11,9 +11,28 @@ class MudNullObject extends MudNullThing implements IMudNullObject {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-10-21 jj5 - public static methods...
+  //
+
+  public static function Instance() : IMudNullObject {
+
+    static $instance = null;
+
+    if ( ! $instance ) {
+
+      $instance = self::Create();
+
+    }
+
+    return $instance;
+
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-07-01 jj5 - IMudNullObject interface...
   //
-  
+
   public function get_null() : IMudNullObject { return $this; }
 
 }

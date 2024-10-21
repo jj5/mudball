@@ -132,22 +132,44 @@ function mud_pclog_log_custom(
 
 }
 
-function mud_pclog_log_exception( Throwable $ex, MudExceptionKind $kind, &$report = null, &$issue = null ) {
-  /*
-  int $level = LOG_ERR,
-  bool $fatal = false,
-  &$report = null,
-  &$issue = null,
-  // 2020-04-19 jj5 - $unhandled is true if Pclog handled the exception with
-  // its unhandled exception handler, it's false if the application has
-  // handled the exception and called this logging function directly.
-  bool $unhandled = false
-  */
+function mud_pclog_log_previous( Throwable $ex, string|null &$report = null, string|null &$issue = null ) {
 
-  //return mud_module_pclog()->log_exception( $ex, $level, $fatal, $report, $issue, $unhandled );
-  $result = mud_module_pclog()->log_exception( $ex, $kind, $report, $issue );
+  return mud_pclog_log_exception( $ex, MudExceptionKind::PREVIOUS, $report, $issue );
 
-  return $result;
+}
+
+function mud_pclog_log_handled( Throwable $ex, string|null &$report = null, string|null &$issue = null ) {
+
+  return mud_pclog_log_exception( $ex, MudExceptionKind::HANDLED, $report, $issue );
+
+}
+
+function mud_pclog_log_ignored( Throwable $ex, string|null &$report = null, string|null &$issue = null ) {
+
+  return mud_pclog_log_exception( $ex, MudExceptionKind::IGNORED, $report, $issue );
+
+}
+
+function mud_pclog_log_fatal( Throwable $ex, string|null &$report = null, string|null &$issue = null ) {
+
+  return mud_pclog_log_exception( $ex, MudExceptionKind::FATAL, $report, $issue );
+
+}
+
+function mud_pclog_log_unhandled( Throwable $ex, string|null &$report = null, string|null &$issue = null ) {
+
+  return mud_pclog_log_exception( $ex, MudExceptionKind::UNHANDLED, $report, $issue );
+
+}
+
+function mud_pclog_log_exception(
+  Throwable $ex,
+  MudExceptionKind $kind,
+  string|null &$report = null,
+  string|null &$issue = null,
+) {
+
+  return mud_module_pclog()->log_exception( $ex, $kind, $report, $issue );
 
 }
 

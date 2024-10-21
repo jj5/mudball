@@ -40,9 +40,9 @@ class MudUrlBuilder extends MudService {
   // 2024-02-09 jj5 - constructor...
   //
 
-  public function __construct( MudUrl|null $previous = null ) {
+  public function __construct() {
 
-    parent::__construct( $previous );
+    parent::__construct();
 
     $cdn = defined( 'APP_CDN' ) ? APP_CDN : null;
 

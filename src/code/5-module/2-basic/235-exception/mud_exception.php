@@ -29,6 +29,7 @@ require_once __DIR__ . '/class/MudModuleException.php';
 
 function new_mud_http_exception(
   int $http_status_code,
+  string $http_status_message,
   $location = null,
   $data = null,
   $previous = null,
@@ -36,6 +37,7 @@ function new_mud_http_exception(
 
   return mud_module_exception()->new_mud_http_exception(
     $http_status_code,
+    $http_status_message,
     $location,
     $data,
     $previous,
