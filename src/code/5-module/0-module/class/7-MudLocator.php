@@ -131,7 +131,7 @@ class MudLocator extends MudService {
 
   }
 
-  public function get_service( string $service_indicator ) : MudService {
+  public function get_service( string $service_indicator ) : object {
 
     $service_name = $this->get_service_name( $service_indicator );
 
@@ -191,12 +191,9 @@ class MudLocator extends MudService {
 
     // 2024-02-15 jj5 - the service/module name is the name of the class sans the 'Mud' or 'App' prefix...
 
-    // 2024-02-15 jj5 - if you have an AppApplication class or similar you're gonna want to use the full class name,
-    // otherwise you're gonna have a bad time...
-
     if (
-      preg_match( '/^Mud/', $indicator ) ||
-      preg_match( '/^App/', $indicator )
+      preg_match( '/^Mud[A-Z]/', $indicator ) ||
+      preg_match( '/^App[A-Z]/', $indicator )
     ) {
 
       return substr( $indicator, 3 );

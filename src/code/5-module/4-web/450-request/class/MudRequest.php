@@ -51,9 +51,9 @@ class MudRequest extends MudService implements IMudRequest {
   // 2024-02-09 jj5 - constructor...
   //
 
-  public function __construct( MudRequest|null $previous = null ) {
+  public function __construct() {
 
-    parent::__construct( $previous );
+    parent::__construct();
 
     $request_reader = new_mud_request_reader();
 

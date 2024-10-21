@@ -33,7 +33,7 @@ class MudFactory extends MudService {
 
   }
 
-  public function create_service( string $service_name ) : MudService {
+  public function create_service( string $service_name ) : object {
 
     $app_class = 'App' . $service_name;
 

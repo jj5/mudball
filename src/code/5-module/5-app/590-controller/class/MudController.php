@@ -94,7 +94,7 @@ class MudController extends MudService implements IMudController {
 
     try {
 
-      if ( ! app_raw()->has_table( 't_config_std_application_status' ) ) {
+      if ( ! mud_raw()->has_table( 't_config_std_application_status' ) ) {
 
         $this->is_online = false;
 
@@ -104,7 +104,7 @@ class MudController extends MudService implements IMudController {
 
       app_interaction()->init();
 
-      $status = app_raw()->get_row_t_config_std_application_status( APP_CODE );
+      $status = mud_raw()->get_row_t_config_std_application_status( APP_CODE );
 
       /*
       if ( ! $status ) {
@@ -153,12 +153,10 @@ class MudController extends MudService implements IMudController {
 
       $this->is_online = false;
 
-      throw $ex;
-
     }
   }
 
-  protected function get_raw() { return app_raw(); }
+  protected function get_raw() { return mud_raw(); }
 
   protected function check_online() {
 

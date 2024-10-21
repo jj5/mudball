@@ -42,6 +42,7 @@ class MudSettings extends MudGadget implements ArrayAccess {
   // 2022-03-06 jj5 - public static methods...
   //
 
+  /*
   public static function Create(
     array $settings,
     array $defaults = []
@@ -50,6 +51,7 @@ class MudSettings extends MudGadget implements ArrayAccess {
     return new_mud_settings( $settings, $defaults );
 
   }
+  */
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

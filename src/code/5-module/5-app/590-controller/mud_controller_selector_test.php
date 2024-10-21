@@ -13,7 +13,7 @@ require_once __DIR__ . '/mud_controller.php';
 // 2021-08-24 jj5 - declare test hosts...
 //
 
-class TestWebController extends MudWebController {
+class TestWebController extends MudControllerWeb {
 
   public function get_is_valid_selector( $selector ) {
 

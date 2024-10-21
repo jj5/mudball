@@ -82,7 +82,7 @@ class MudModuleError extends MudModuleCritical {
     mixed $data,
   ) {
 
-    return new MudException( $message, $code, $previous, $name, $hint, $data );
+    return MudException::Create( $message, $code, $previous, $name, $hint, $data );
 
   }
 
@@ -94,7 +94,7 @@ class MudModuleError extends MudModuleCritical {
   public function get_error_text( $code ) { return $this->error_map[ $code ][ 'text' ] ?? null; }
 
   public function get_error_name( $code ) { return $this->error_map[ $code ][ 'name' ] ?? null; }
-  
+
   public function get_error_hint( $code ) { return $this->error_map[ $code ][ 'hint' ] ?? null; }
 
   public function define_error(

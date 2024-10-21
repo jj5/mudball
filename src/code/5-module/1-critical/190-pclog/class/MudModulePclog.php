@@ -366,7 +366,22 @@ class MudModulePclog extends MudModuleCritical {
 
   }
 
-  public function log_exception( $ex, MudExceptionKind $kind, &$report = null, &$issue = null ) {
+  public function log_exception( Throwable $ex, MudExceptionKind $kind, &$report = null, &$issue = null ) {
+
+    if ( DEBUG ) {
+
+      try {
+
+        $file = $ex->getFile();
+        $line = $ex->getLine();
+        $mesg = $ex->getMessage();
+
+        mud_log_try_warn( "pclog: logging exception: $file:$line: $mesg" );
+
+      }
+      catch ( Throwable $ignore ) { ; }
+
+    }
 
     $level = mud_module_log()->settings[ $kind->value ][ 'level' ];
     $final = mud_module_log()->settings[ $kind->value ][ 'final' ];
@@ -382,7 +397,7 @@ class MudModulePclog extends MudModuleCritical {
     }
     else {
 
-      if ( $this->exception_log_count >= 100 ) {
+      if ( $this->exception_log_count >= 10 ) {
 
         mud_log_try_warn( 'pclog has logged too many exceptions.' );
 
@@ -417,12 +432,25 @@ class MudModulePclog extends MudModuleCritical {
       $this->last_report = $report;
       $this->last_issue = $issue;
 
+      if ( function_exists( 'mud_interaction' ) ) {
+
+        try {
+
+          // 2024-10-21 jj5 - TODO: put this back in...
+
+          //mud_interaction()->log_fail( $issue );
+
+        }
+        catch ( Throwable $ignore ) { ; }
+
+      }
+
       return true;
 
     }
-    catch ( Throwable $ex ) {
+    catch ( Throwable $ignore ) {
 
-      mud_log_try_warn( 'pclog: error logging exception: ' . $ex->getMessage() );
+      mud_log_try_warn( 'pclog: error logging exception: ' . $ignore->getMessage() );
 
       return false;
 
@@ -1036,7 +1064,7 @@ $trace
       }
       catch ( Throwable $ignore ) {
 
-        if ( mud_is_set( 'DEBUG' ) ) {
+        if ( DEBUG ) {
 
           mud_log_exception_ignored( $ignore );
 
@@ -1109,6 +1137,10 @@ $trace
 
     }
 
+    mud_log_try_warn( 'pclog submission failed: ' . $curl_error );
+
+    return;
+
     var_dump([
       'url' => $url,
       'result' => $result,
@@ -1116,6 +1148,8 @@ $trace
       'curl_error' => $curl_error,
       'msts' => $msts,
     ]);
+
+    exit;
 
     throw new Exception( 'Pclog submission failed.' );
 

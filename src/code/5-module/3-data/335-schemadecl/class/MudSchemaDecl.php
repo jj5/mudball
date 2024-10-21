@@ -1554,7 +1554,7 @@ class MudSchemaDecl extends MudSchemaDeclBase {
 
   protected function quote( string $value ) {
 
-    return app_raw()->quote( $value );
+    return mud_raw()->quote( $value );
 
   }
 

@@ -75,11 +75,13 @@ class MudConstant extends MudGadget implements IMudConstant {
 
   }
 
+  /*
   public static function Create( $constant_name, $default_value ) {
 
     return new_mud_constant( $constant_name, $default_value );
 
   }
+  */
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

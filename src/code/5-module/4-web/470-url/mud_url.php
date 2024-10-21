@@ -45,3 +45,9 @@ function mud_module_url() : MudModuleUrl {
   return mud_locator()->get_module( MudModuleUrl::class );
 
 }
+
+function mud_url() : MudUrl {
+
+  return mud_locator()->get_service( MudUrl::class );
+
+}

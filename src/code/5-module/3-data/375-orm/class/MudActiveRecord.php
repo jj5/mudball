@@ -126,7 +126,7 @@ class MudActiveRecord extends MudGadget implements ArrayAccess {
 
   public function init( ?int $id = null ) {
 
-    if ( ! $id ) { $id = app_raw()->new_internal_id(); }
+    if ( ! $id ) { $id = mud_raw()->new_internal_id(); }
 
     assert( is_int( $id ) );
     assert( $id > 0 );

@@ -30,14 +30,20 @@ class MudUrl extends MudString implements IMudUrl {
 
   private bool $is_valid;
 
-  private bool|null $is_relative;
+  private bool $is_relative;
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-29 jj5 - constructor...
   //
 
-  public function __construct( string $url ) {
+  public function __construct( string|null $url = null ) {
+
+    if ( ! $url ) {
+
+      $url = self::get_full_url();
+
+    }
 
     parent::__construct( $url );
 
@@ -51,6 +57,8 @@ class MudUrl extends MudString implements IMudUrl {
     $this->path = mud_get_url_path( $parts[ 'path' ] ?? null );
     $this->query = mud_get_url_query( $parts[ 'query' ] ?? null );
     $this->fragment = mud_get_url_fragment( $parts[ 'fragment' ] ?? null );
+
+    $this->is_relative = $this->calculate_is_relative();
 
     // 2024-06-29 jj5 - it's okay to call is_relative() and format() after the above feilds have been set...
 
@@ -67,18 +75,53 @@ class MudUrl extends MudString implements IMudUrl {
   }
 
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // 2024-10-21 jj5 - public static methods...
+  //
+
+  public static function get_full_url( string|null $fragment = null ) {
+
+    // 2024-10-21 jj5 - get the protocol (HTTP or HTTPS)...
+    //
+    $protocol =
+      ( ! empty( $_SERVER[ 'HTTPS' ] ) && $_SERVER[ 'HTTPS' ] !== 'off' || $_SERVER[ 'SERVER_PORT' ] == 443 ) ?
+      "https://" :
+      "http://";
+
+    // 2024-10-21 jj5 - get the host (domain name or IP address)...
+    //
+    $host = $_SERVER[ 'HTTP_HOST' ];
+
+    // 2024-10-21 jj5 - get the path and query string...
+    //
+    $path_and_query = $_SERVER[ 'REQUEST_URI' ];
+
+    // 2024-10-21 jj5 - combine to get the full URL...
+    //
+    $full_url = $protocol . $host . $path_and_query;
+
+    if ( $fragment ) {
+
+      if ( $fragment[ 0 ] !== '#' ) {
+
+        $fragment = '#' . $fragment;
+
+      }
+
+      $full_url .= $fragment;
+
+    }
+
+    return $full_url;
+
+  }
+
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // 2024-06-29 jj5 - public instance methods...
   //
 
   public function is_relative() {
-
-    if ( $this->is_relative === null ) {
-      
-      $this->is_relative = $this->calculate_is_relative();
-
-    }
 
     return $this->is_relative;
 
@@ -158,7 +201,7 @@ class MudUrl extends MudString implements IMudUrl {
       ( $this->query !== null ? '?' . $this->query : '' ) .
       ( $this->fragment !== null ? '#' . $this->fragment : '' );
 
-  } 
+  }
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

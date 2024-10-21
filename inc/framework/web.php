@@ -11,7 +11,7 @@ if ( function_exists( 'app_render' ) ) {
 }
 else {
 
-  $controller = new MudWebController();
+  $controller = new MudControllerWeb();
 
   $controller->run();
 

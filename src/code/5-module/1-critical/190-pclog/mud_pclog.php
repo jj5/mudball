@@ -132,7 +132,7 @@ function mud_pclog_log_custom(
 
 }
 
-function mud_pclog_log_exception( $ex, MudExceptionKind $kind, &$report = null, &$issue = null ) {
+function mud_pclog_log_exception( Throwable $ex, MudExceptionKind $kind, &$report = null, &$issue = null ) {
   /*
   int $level = LOG_ERR,
   bool $fatal = false,
@@ -146,17 +146,6 @@ function mud_pclog_log_exception( $ex, MudExceptionKind $kind, &$report = null, 
 
   //return mud_module_pclog()->log_exception( $ex, $level, $fatal, $report, $issue, $unhandled );
   $result = mud_module_pclog()->log_exception( $ex, $kind, $report, $issue );
-
-  if ( function_exists( 'mud_interaction' ) ) {
-
-    try {
-
-      mud_interaction()->log_fail( $issue );
-
-    }
-    catch ( Throwable $ex ) { ; }
-
-  }
 
   return $result;
 

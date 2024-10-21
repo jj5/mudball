@@ -22,7 +22,7 @@
 // it has logic to detect when the constructor for an object has not been called. This is useful for debugging because
 // forgetting to call the parent constructor is a common cause of bugs in PHP code.
 
-abstract class MudGadget implements JsonSerializable {
+abstract class MudGadget extends MudGadgetBase {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

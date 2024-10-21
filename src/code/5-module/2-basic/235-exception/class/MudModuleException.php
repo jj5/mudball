@@ -25,7 +25,9 @@ class MudModuleException extends MudModuleBasic {
     $previous = null,
   ) {
 
-    return new MudHttpException(
+    $class = self::get_best_class( MudHttpException::class );
+
+    return new $class(
       $http_status_code,
       $location,
       $data,

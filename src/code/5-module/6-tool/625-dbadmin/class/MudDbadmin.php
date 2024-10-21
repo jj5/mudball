@@ -141,7 +141,7 @@ class MudDbadmin extends MudTool {
     $db = new MudDatabase( MUD_CONNECTION_TYPE_DBA );
     $upgrader = new MudDatabaseUpgrader( $db );
 
-    app_raw( new MudDalRaw );
+    mud_raw( new MudDalRaw );
 
     $prefix = $db->get_prefix();
 
@@ -225,7 +225,7 @@ class MudDbadmin extends MudTool {
 
   public function go_offline( $argv ) {
 
-    app_raw()->put_row_t_config_std_application_status([
+    mud_raw()->put_row_t_config_std_application_status([
       A_STD_APPLICATION_STATUS_SOFTWARE_NAME => APP_CODE,
       A_STD_APPLICATION_STATUS_IS_ONLINE => 0,
     ]);
@@ -234,7 +234,7 @@ class MudDbadmin extends MudTool {
 
   public function go_online( $argv ) {
 
-    app_raw()->put_row_t_config_std_application_status( APP_CODE, $is_online = 1 );
+    mud_raw()->put_row_t_config_std_application_status( APP_CODE, $is_online = 1 );
 
   }
 

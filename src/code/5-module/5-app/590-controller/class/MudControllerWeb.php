@@ -1,6 +1,6 @@
 <?php
 
-class MudWebController extends MudController {
+class MudControllerWeb extends MudController {
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9,7 +9,8 @@ class MudWebController extends MudController {
 
   public function run() {
 
-    $http_status_code = false;
+    $http_status_code = null;
+    $fatal_exception = null;
 
     try {
 
@@ -17,31 +18,32 @@ class MudWebController extends MudController {
 
       $this->process();
 
-      return $this->complete();
+      $http_status_code = 200;
 
     }
     catch ( MudHttpException $ex ) {
 
       $http_status_code = $ex->get_http_status_code();
 
-      if ( $http_status_code < 400 ) {
+      if ( $http_status_code >= 400 ) {
 
-        return $this->complete();
+        $fatal_exception = $ex;
+
+        // 2023-02-22 jj5 - the response code should already be set...
+        //
+        assert( http_response_code() === $http_status_code );
+
+        // 2023-02-22 jj5 - but if it's not we'll set it here, just in case...
+        //
+        http_response_code( $http_status_code );
+
+        mud_pclog_log_exception( $ex, MudExceptionKind::FATAL );
 
       }
-
-      // 2023-02-22 jj5 - the response code should already be set...
-      //
-      assert( http_response_code() === $http_status_code );
-
-      // 2023-02-22 jj5 - but if it's not we'll set it here, just in case...
-      //
-      http_response_code( $http_status_code );
-
-      mud_pclog_log_exception( $ex, MudExceptionKind::FATAL );
-
     }
     catch ( Throwable $ex ) {
+
+      $fatal_exception = $ex;
 
       $http_status_code = 500;
 
@@ -49,6 +51,24 @@ class MudWebController extends MudController {
 
       mud_pclog_log_exception( $ex, MudExceptionKind::FATAL );
 
+    }
+
+    if ( ! $fatal_exception ) {
+
+      try {
+
+        return $this->complete();
+
+      }
+      catch ( Throwable $ex ) {
+
+        $fatal_exception = $ex;
+
+        http_response_code( 500 );
+
+        mud_pclog_log_exception( $ex, MudExceptionKind::FATAL );
+
+      }
     }
 
     while ( ob_get_level() ) { ob_end_clean(); }
@@ -90,17 +110,11 @@ class MudWebController extends MudController {
 
     foreach ( $flags as $flag ) { if ( ! defined( $flag ) ) { define( $flag, false ); } }
 
-    app( $this );
+    mud_controller( $this );
 
-    $request_reader = new_mud_request_reader();
+    mud_url();
 
-    $request = $request_reader->read();
-
-    mud_request( $request );
-
-    mud_url( new_mud_url( $request ) );
-
-    $facility = $request->get_facility();
+    $facility = mud_request()->get_facility();
     //$facility = $this->get_facility( $request );
 
     $session_token = mud_session()->get_session_token();
