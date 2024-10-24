@@ -1,5 +1,10 @@
 <?php
 
+define( 'MUD_MudExceptionKind_PREVIOUS', MudExceptionKind::PREVIOUS->value );
+define( 'MUD_MudExceptionKind_HANDLED', MudExceptionKind::HANDLED->value );
+define( 'MUD_MudExceptionKind_IGNORED', MudExceptionKind::IGNORED->value );
+define( 'MUD_MudExceptionKind_FATAL', MudExceptionKind::FATAL->value );
+define( 'MUD_MudExceptionKind_UNHANDLED', MudExceptionKind::UNHANDLED->value );
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 2021-03-19 jj5 - class definition...
@@ -20,11 +25,11 @@ class MudModuleLog extends MudModuleWebLog {
   //
 
   public $settings = [
-    MudExceptionKind::PREVIOUS->value   => [ 'level' => MUD_LOG_LEVEL_6_INFO,     'final' => false ],
-    MudExceptionKind::HANDLED->value    => [ 'level' => MUD_LOG_LEVEL_5_NOTICE,   'final' => false ],
-    MudExceptionKind::IGNORED->value    => [ 'level' => MUD_LOG_LEVEL_4_WARNING,  'final' => false ],
-    MudExceptionKind::FATAL->value      => [ 'level' => MUD_LOG_LEVEL_3_ERROR,    'final' => true  ],
-    MudExceptionKind::UNHANDLED->value  => [ 'level' => MUD_LOG_LEVEL_3_ERROR,    'final' => true  ],
+    MUD_MudExceptionKind_PREVIOUS   => [ 'level' => MUD_LOG_LEVEL_6_INFO,     'final' => false ],
+    MUD_MudExceptionKind_HANDLED    => [ 'level' => MUD_LOG_LEVEL_5_NOTICE,   'final' => false ],
+    MUD_MudExceptionKind_IGNORED    => [ 'level' => MUD_LOG_LEVEL_4_WARNING,  'final' => false ],
+    MUD_MudExceptionKind_FATAL      => [ 'level' => MUD_LOG_LEVEL_3_ERROR,    'final' => true  ],
+    MUD_MudExceptionKind_UNHANDLED  => [ 'level' => MUD_LOG_LEVEL_3_ERROR,    'final' => true  ],
   ];
 
 
